@@ -14,13 +14,13 @@
 
 ## GIỚI THIỆU MÔN HỌC
 <a name="gioithieumonhoc"></a>
-Môn học: Tính toán đa phương tiện (Multinmedia Computing)
-Giảng viên hướng dẫn: ThS. **Đỗ Văn Tiến** - *tiendv@uit.edu.vn*
-Nội dung môn học:
-+ Tổng quan về dữ liệu đa phương tiện.
-+ Giới thiệu các dạng dữ liệu cơ bản: Text, Âm thanh, Ảnh Số, Video …
-+ Một số xử lý tín hiệu digital và analog
-+ Một số kỹ thuật liên quan đến nén và giải nén dữ liệu đa phƣơng tiện.
++ **Môn học**: Tính toán đa phương tiện (Multinmedia Computing)
++ **Giảng viên hướng dẫn**: ThS. **Đỗ Văn Tiến** - *tiendv@uit.edu.vn*
++ **Nội dung môn học**:
+   + Tổng quan về dữ liệu đa phương tiện.
+   + Giới thiệu các dạng dữ liệu cơ bản: Text, Âm thanh, Ảnh Số, Video …
+   + Một số xử lý tín hiệu digital và analog
+   + Một số kỹ thuật liên quan đến nén và giải nén dữ liệu đa phƣơng tiện.
 
 ## DANH SÁCH THÀNH VIÊN
 <a name="thanhvien"></a>
