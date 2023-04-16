@@ -24,10 +24,10 @@
 
 ## DANH SÁCH THÀNH VIÊN
 <a name="thanhvien"></a>
-| STT | Họ và tên | MSSV | Email |
-|:-----:|:-------:|:------:|:-------:|
-| 1 | [Phạm Thiện Bảo](https://github.com/beetibao) | 20521107 | 20521107@gm.uit.edu.vn |
-| 2 | [Lê Nguyễn Tiến Đạt](https://github.com/lenguyentiendat) | 20521167 | 20521167@gm.uit.edu.vn |
+| STT | Họ và tên | Chức vụ | MSSV | Email |
+|:-----:|:-------:|:------:|:-------:|:-------:|
+| 1 | [Phạm Thiện Bảo](https://github.com/beetibao)| Nhóm trưởng | 20521107 | 20521107@gm.uit.edu.vn |
+| 2 | [Lê Nguyễn Tiến Đạt](https://github.com/lenguyentiendat)| Thành viên | 20521167 | 20521167@gm.uit.edu.vn |
 
 ## ĐỒ ÁN MÔN HỌC
 <a name="doan"></a>
