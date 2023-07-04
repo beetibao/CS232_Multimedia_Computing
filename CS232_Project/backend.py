@@ -4,16 +4,9 @@ from algos import compress_img_DCT
 from algos import decompress_img_DCT
 from algos import evaluate_DCT
 import algos
-#import cv2
+import cv2
 import numpy as np
 import pandas as pd 
-
-import os
-try:
-    import cv2
-except:
-    os.system("sudo apt-get install libgl1-mesa-glx")
-    import cv2
 
 def DCT(img,level):
     st.header('Discrete Cosine Transform')
