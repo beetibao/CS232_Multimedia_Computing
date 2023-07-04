@@ -1,3 +1,4 @@
+--upgrade pip
 streamlit
 Pillow
 opencv-python
@@ -6,4 +7,3 @@ pandas
 matplotlib 
 inv
 stqdm
-opencv-python-headless
