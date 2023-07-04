@@ -6,3 +6,4 @@ pandas
 matplotlib 
 inv
 stqdm
+libgl1
