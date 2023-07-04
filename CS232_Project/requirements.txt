@@ -3,7 +3,6 @@ Pillow
 opencv-python
 numpy 
 pandas
-time
 matplotlib 
 inv
 stqdm
