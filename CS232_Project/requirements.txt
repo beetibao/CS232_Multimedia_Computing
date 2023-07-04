@@ -1,0 +1,9 @@
+pip
+streamlit
+Pillow
+opencv-python
+numpy 
+pandas
+matplotlib 
+inv
+stqdm
