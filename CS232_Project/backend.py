@@ -10,7 +10,7 @@ import numpy as np
 import pandas as pd 
 
 def DCT(img,level,dir_path):
-    st.header('Discrete Cosine Transform')
+    st.header('📍 blue[Discrete Cosine Transform]')
     st.subheader("Image Before:")
     img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
     st.image(img)
