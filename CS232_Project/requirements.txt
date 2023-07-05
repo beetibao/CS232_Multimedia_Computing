@@ -1,5 +1,4 @@
 pip
-python
 streamlit
 Pillow
 opencv-python
