@@ -20,7 +20,7 @@
    + Tổng quan về dữ liệu đa phương tiện.
    + Giới thiệu các dạng dữ liệu cơ bản: Text, Âm thanh, Ảnh Số, Video …
    + Một số xử lý tín hiệu digital và analog
-   + Một số kỹ thuật liên quan đến nén và giải nén dữ liệu đa phƣơng tiện.
+   + Một số kỹ thuật liên quan đến nén và giải nén dữ liệu đa phương tiện.
 
 ## DANH SÁCH THÀNH VIÊN
 <a name="thanhvien"></a>
