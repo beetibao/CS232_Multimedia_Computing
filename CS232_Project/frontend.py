@@ -21,7 +21,7 @@ col1, col2 = st.columns((2,4))
 with col1:
     st.image(Image.open(dir_path +'/Logo_UIT.png'), width=250)
 with col2:
-    st.title(":blue[COMPRESS/DECOMPRESS WITH DCT & SVD]")
+    st.title(":blue[COMPRESS/ DECOMPRESS WITH DCT & SVD]")
     st.header('CS232 - Multimedia Computing')
     st.subheader('👱 Member:')
     col3, col4 = st.columns((2,2))
