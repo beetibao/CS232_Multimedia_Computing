@@ -26,10 +26,10 @@ with col2:
     st.write('Member:')
     col3, col4 = st.columns((2,2))
     with col3:
-        st.subheader(':taurus: Phạm Thiện Bảo')
+        st.subheader('Phạm Thiện Bảo')
         st.image(Image.open(dir_path + '/Member1.jpg'), width=100)
     with col4:
-        st.subheader(':libra: Lê Nguyễn Tiến Đạt')
+        st.subheader('Lê Nguyễn Tiến Đạt')
         st.image(Image.open(dir_path + '/Member2.jpg'), width=100)
 
 with st.form("first_form"):
