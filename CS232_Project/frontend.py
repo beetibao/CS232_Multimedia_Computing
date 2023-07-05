@@ -16,7 +16,7 @@ st.set_page_config(
         'About': "Install and evaluate two algorithms DCT & SVD on picture"
     }
 )
-dir_path = os.path.dirname(os.path.realpath(__file__))
+
 col1, col2 = st.columns((2,4))
 with col1:
     st.image(Image.open(dir_path +'/Logo_UIT.png'), width=250)
@@ -54,6 +54,7 @@ with st.form("first_form"):
 
 if upload_img and submitted:
     st.success('**We received your request!**', icon="✅")
+    dir_path = os.path.dirname(os.path.realpath(__file__))
     img = Image.open(upload_img)
     if dct:
         DCT(img,level,dir_path)
