@@ -6,6 +6,7 @@ from matplotlib import pyplot as plt
 from numpy.linalg import inv
 from stqdm import stqdm
 import streamlit as st
+from PIL import Image
 
 def dct_coeff():
     T = np.zeros([8,8])
@@ -92,7 +93,7 @@ def decompress(C,Q,T,T_prime):
     return N
 
 
-def compress_img_DCT(img_before,level):
+def compress_img_DCT(img_before,level,dir_path):
     start_com = time.time()
     I = img_before
     B, G, R = cv2.split(I)
@@ -125,6 +126,8 @@ def compress_img_DCT(img_before,level):
 
     image_DCT = cv2.merge((C_B,C_G,C_R))
     end_com = time.time()
+    cv2.imwrite(dir_path + 'After_Quantiz'+str(level)+'.jpg',tmp)
+    st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
     time_comp = end_com - start_com
 
     return C_B,C_G,C_R,Q,T,T_prime,image_DCT,time_comp

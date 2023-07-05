@@ -23,7 +23,7 @@ def DCT(img,level,dir_path):
                         RMS = [], 
                         SNR = [] )
        
-    C_B,C_G,C_R,Q,T,T_prime,image_DCT,time_comp = compress_img_DCT(img_before,level)
+    C_B,C_G,C_R,Q,T,T_prime,image_DCT,time_comp = compress_img_DCT(img_before,level,dir_path)
 
     img_after, time_de = decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,image_DCT)
     st.subheader("Image After:")
