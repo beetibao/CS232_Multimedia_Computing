@@ -27,9 +27,11 @@ with col2:
     col3, col4 = st.columns((2,2))
     with col3:
         st.subheader('Phạm Thiện Bảo')
+        st.write('**20521107**')
         st.image(Image.open(dir_path + '/Member1.jpg'), width=100)
     with col4:
         st.subheader('Lê Nguyễn Tiến Đạt')
+        st.write('**20521167**')
         st.image(Image.open(dir_path + '/Member2.jpg'), width=100)
 
 with st.form("first_form"):
