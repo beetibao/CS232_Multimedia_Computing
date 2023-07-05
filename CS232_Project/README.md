@@ -31,3 +31,5 @@
 
 ## ĐỒ ÁN MÔN HỌC
 <a name="doan"></a>
+### Thực nghiệm trên streamlit:
+🚩 [![COMPRESS/DECOMPRESS WITH DCT & SVD](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cs232demo-20521107.streamlit.app/)

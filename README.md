@@ -20,7 +20,7 @@
    + Tổng quan về dữ liệu đa phương tiện.
    + Giới thiệu các dạng dữ liệu cơ bản: Text, Âm thanh, Ảnh Số, Video …
    + Một số xử lý tín hiệu digital và analog
-   + Một số kỹ thuật liên quan đến nén và giải nén dữ liệu đa phƣơng tiện.
+   + Một số kỹ thuật liên quan đến nén và giải nén dữ liệu đa phương tiện.
 
 ## DANH SÁCH THÀNH VIÊN
 <a name="thanhvien"></a>
@@ -31,3 +31,5 @@
 
 ## ĐỒ ÁN MÔN HỌC
 <a name="doan"></a>
+🚩 [![Nén/Giải với DCT & SVD](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cs232demo-20521107.streamlit.app/)
+
