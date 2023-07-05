@@ -13,7 +13,7 @@ st.set_page_config(
     menu_items={
         'Get Help': 'https://www.facebook.com/beetibao',
         'Report a bug': "https://www.facebook.com/beetibao",
-        'About': "Install and evaluate two algorithms DCT & SVD on picture"
+        'About': "https://github.com/beetibao/CS232_MultimediaComputing.git"
     }
 )
 dir_path = os.path.dirname(os.path.realpath(__file__))
