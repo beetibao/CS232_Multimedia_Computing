@@ -25,19 +25,15 @@ with col2:
     st.header('CS232 - Multimedia Computing')
     st.subheader('👱 Member:')
     col3, col4 = st.columns((2,2))
-    col3_1, col4_1 = st.columns((1,1))
+   
     with col3:
-        with col3_1:
-            st.subheader('Phạm Thiện Bảo')
-        with col4_1:
-            st.write('**20521107**')
-            st.image(Image.open(dir_path + '/Member1.jpg'), width=100)
+        st.subheader('Phạm Thiện Bảo')
+        st.write('**20521107**')
+        st.image(Image.open(dir_path + '/Member1.jpg'), width=100)
     with col4:
-        with col3_1:
-            st.subheader('Lê Nguyễn Tiến Đạt')
-        with col4_1:
-            st.write('**20521167**')
-            st.image(Image.open(dir_path + '/Member2.jpg'), width=100)
+        st.subheader('Lê Nguyễn Tiến Đạt')
+        st.write('**20521167**')
+        st.image(Image.open(dir_path + '/Member2.jpg'), width=100)
 
 with st.form("first_form"):
     st.subheader(":blue[1. Choose a picture]")
