@@ -39,5 +39,5 @@ def DCT(img,level,dir_path):
                         "SNR": np.round(snr,4)})
     
     result_DCT = pd.DataFrame([metric_dct],index=None)
-    st.subheader("Result")
+    st.subheader("Result:")
     st.table(data=result_DCT)
