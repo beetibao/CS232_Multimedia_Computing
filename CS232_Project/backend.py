@@ -14,7 +14,7 @@ def DCT(img,level,dir_path):
     st.subheader("Image Before:")
     img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
     st.image(img)
-    st.text(f"**Image shape :** {img_before.shape}")
+    st.write(f"**Image shape :** {img_before.shape}")
         
     metric_dct = dict(  level = level, 
                         time_com_sec = [], 
