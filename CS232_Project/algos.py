@@ -126,7 +126,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     image_DCT = cv2.merge((C_B,C_G,C_R))
     end_com = time.time()
-    cv2.imwrite(dir_path + 'After_Quantiz'+str(level)+'.jpg',tmp)
+    cv2.imwrite(dir_path +'/After_Quantiz'+str(level)+'.jpg',tmp)
     st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
     time_comp = end_com - start_com
 
