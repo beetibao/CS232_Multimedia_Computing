@@ -16,10 +16,10 @@ st.set_page_config(
         'About': "Install and evaluate two algorithms DCT & SVD on picture"
     }
 )
-
+dir_path = os.path.dirname(os.path.realpath(__file__))
 col1, col2 = st.columns((2,4))
 with col1:
-    st.image(Image.open('Logo_UIT.png'), width=250)
+    st.image(Image.open(dir_path +'/Logo_UIT.png'), width=250)
 with col2:
     st.title(":blue[COMPRESS/DECOMPRESS WITH DCT & SVD]")
     st.header('CS232 - Multimedia Computing')
@@ -27,10 +27,10 @@ with col2:
     col3, col4 = st.columns((2,2))
     with col3:
         st.subheader('Phạm Thiện Bảo')
-        st.image(Image.open('Member1.jpg'), width=100)
+        st.image(Image.open(dir_path + 'Member1.jpg'), width=100)
     with col4:
         st.subheader('Lê Nguyễn Tiến Đạt')
-        st.image(Image.open('Member2.jpg'), width=100)
+        st.image(Image.open(dir_path + 'Member2.jpg'), width=100)
 
 with st.form("first_form"):
     st.subheader(":blue[1. Choose a picture]")

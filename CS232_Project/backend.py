@@ -9,6 +9,8 @@ import os
 import numpy as np
 import pandas as pd 
 
+dir_path = os.path.dirname(os.path.realpath(__file__))
+
 def DCT(img,level):
     st.header('Discrete Cosine Transform')
     st.subheader("Image Before:")
@@ -28,7 +30,7 @@ def DCT(img,level):
     img_after, time_de = decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,image_DCT)
     st.subheader("Image After:")
     
-    cv2.imwrite('output_DCT.jpg',img_after)
+    cv2.imwrite(dir_path + 'output_DCT.jpg',img_after)
     st.image(Image.open('output_DCT.jpg'))
        
     rms, snr = evaluate_DCT(img_before,img_after)
