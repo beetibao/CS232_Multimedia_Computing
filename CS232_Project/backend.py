@@ -9,10 +9,7 @@ import os
 import numpy as np
 import pandas as pd 
 
-global dir_path 
-dir_path = os.path.dirname(os.path.realpath(__file__))
-
-def DCT(img,level):
+def DCT(img,level,dir_path):
     st.header('Discrete Cosine Transform')
     st.subheader("Image Before:")
     img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
