@@ -8,7 +8,7 @@ import os
 
 st.set_page_config(
     page_title= "COMPRESS/DECOMPRESS USING DCT & SVD",
-    page_icon = "😍",
+    page_icon = "🏕",
     layout="wide",
     menu_items={
         'Get Help': 'https://www.facebook.com/beetibao',
