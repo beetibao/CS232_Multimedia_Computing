@@ -23,7 +23,7 @@ with col1:
 with col2:
     st.title(":blue[COMPRESS/DECOMPRESS WITH DCT & SVD]")
     st.header('CS232 - Multimedia Computing')
-    st.write('Member:')
+    st.write('**Member:**')
     col3, col4 = st.columns((2,2))
     with col3:
         st.subheader('Phạm Thiện Bảo')
