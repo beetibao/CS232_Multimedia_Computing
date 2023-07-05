@@ -9,6 +9,7 @@ import os
 import numpy as np
 import pandas as pd 
 
+global dir_path 
 dir_path = os.path.dirname(os.path.realpath(__file__))
 
 def DCT(img,level):
