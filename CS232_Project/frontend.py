@@ -56,5 +56,5 @@ if upload_img and submitted:
     st.success('**We received your request!**', icon="✅")
     img = Image.open(upload_img)
     if dct:
-        DCT(img,level)
+        DCT(img,level,dir_path)
         
