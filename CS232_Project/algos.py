@@ -152,7 +152,7 @@ def compress_img_DCT(img_before,level,dir_path):
     bitstream = get_run_length_encoding(arranged)
     bitstream = str(image_DCT.shape[0]) + " " + str(image_DCT.shape[1]) + " " + bitstream + ";"
 
-    file1 = open(dir_path + "/image.txt","w")
+    file1 = open(dir_path + "/image.txt","w+")
     file1.write(bitstream)
     file1.close()
 
