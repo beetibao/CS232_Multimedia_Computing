@@ -60,4 +60,6 @@ if upload_img and submitted:
     img = Image.open(upload_img)
     if dct:
         DCT(img,level,dir_path)
-        
+    #if svd:
+        #SVD()
+        #print('A')
