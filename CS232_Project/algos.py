@@ -114,10 +114,6 @@ def decompress(C,Q,T,T_prime):
 def compress_img_DCT(img_before,level,dir_path):
     start_com = time.time()
     I = img_before
-    st.write('Kích thước ban đầu')
-    height, width, channels = I.shape
-    image_size = height * width * channels
-    st.write(image_size)
 
     B, G, R = cv2.split(I)
 
@@ -166,6 +162,12 @@ def compress_img_DCT(img_before,level,dir_path):
     
     byte_size = len(image_txt)
     #byte_size = (bitstream_length + 7) // 8
+    st.write('Kích thước ban đầu')
+    height, width, channels = I.shape
+    image_size = height * width * channels
+    st.write(image_size)
+    st.write('byte_size_text')
+    st.write(byte_size)
     st.write("Tỷ lệ nén")
     st.write(((image_size-byte_size)/image_size)*100)
     # st.write(byte_size)
