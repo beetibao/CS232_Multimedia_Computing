@@ -8,6 +8,9 @@ from stqdm import stqdm
 import streamlit as st
 from PIL import Image
 
+
+
+
 def dct_coeff():
     T = np.zeros([8,8])
     for i in range(8):
@@ -114,7 +117,7 @@ def compress_img_DCT(img_before,level,dir_path):
     D_G = dct(G,T,T_prime)
     D_B = dct(B,T,T_prime)
 
-    tmp = cv2.merge((D_B, D_G, D_R))
+    tmp = cv2.merge((D_R, D_G, D_B))
 
     st.text("Quantiz Process.........")
     C_R = quantiz(D_R,Q)
@@ -123,8 +126,9 @@ def compress_img_DCT(img_before,level,dir_path):
     C_G[C_G==0] = 0
     C_B = quantiz(D_B,Q)
     C_B[C_B==0] = 0
-
+    
     image_DCT = cv2.merge((C_B,C_G,C_R))
+    #image_DCT = cv2.merge((C_B,C_G,C_R))
     end_com = time.time()
     cv2.imwrite(dir_path +'/After_Quantiz'+str(level)+'.jpg',tmp)
     st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
@@ -143,7 +147,8 @@ def decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,fileout):
     #N_G = np.round(N_G).astype(np.uint8)
     #N_B = np.round(N_B).astype(np.uint8)
 
-    image_de = cv2.merge((N_B, N_G, N_R))
+    #image_de = cv2.merge((N_B, N_G, N_R))
+    image_de = cv2.merge((N_R, N_G, N_B))
     end_de = time.time()
     time_de = end_de - start_de
     #cv2.imwrite(fileout,N_I)
