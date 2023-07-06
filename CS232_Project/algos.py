@@ -114,6 +114,11 @@ def decompress(C,Q,T,T_prime):
 def compress_img_DCT(img_before,level,dir_path):
     start_com = time.time()
     I = img_before
+    st.write('Kích thước ban đầu')
+    height, width, channels = I.shape
+    image_size = height * width * channels
+    st.write(image_size)
+    
     B, G, R = cv2.split(I)
 
     H = I.shape[0]
@@ -158,7 +163,12 @@ def compress_img_DCT(img_before,level,dir_path):
 
     with open(dir_path + '/image.txt', 'r') as myfile:
         image_txt = myfile.read()
+    
+    bitstream_length = len(image_txt)
+    byte_size = (bitstream_length + 7) // 8
+    st.write(byte_size)
 
+    
     st.write(bitstream)
     st.write(image_txt)
 

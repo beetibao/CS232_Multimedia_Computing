@@ -75,20 +75,6 @@ def zigzag(input):
     return output
 
 
-
-
-# Inverse zigzag scan of a matrix
-# Arguments are: a 1-by-m*n array, 
-# where m & n are vertical & horizontal sizes of an output matrix.
-# Function returns a two-dimensional matrix of defined sizes,
-# consisting of input array items gathered by a zigzag method.
-#
-# Matlab Code:
-# Alexey S. Sokolov a.k.a. nICKEL, Moscow, Russia
-# June 2007
-# alex.nickel@gmail.com
-
-
 def inverse_zigzag(input, vmax, hmax):
     
     #print input.shape
@@ -158,9 +144,6 @@ def inverse_zigzag(input, vmax, hmax):
                 v = v + 1
                 h = h - 1
                 i = i + 1
-
-
-
 
         if ((v == vmax-1) and (h == hmax-1)):          # bottom right element
             #print(7)        	
