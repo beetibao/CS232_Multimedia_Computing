@@ -12,8 +12,8 @@ import pandas as pd
 def DCT(img,level,dir_path):
     st.header('📍 :blue[Discrete Cosine Transform]')
     st.subheader("Image Before:")
-    #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
-    img_before = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2YCR_CB)
+    img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2YCR_CB)
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2YCR_CB)
     st.image(img)
     st.write(f"**Image shape :** {img_before.shape}")
