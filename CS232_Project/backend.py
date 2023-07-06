@@ -15,7 +15,7 @@ def DCT(img,level,dir_path):
     img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2YCR_CB)
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2YCR_CB)
-    
+
     st.image(img)
     st.write(f"**Image shape :** {img_before.shape}")
         
