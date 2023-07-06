@@ -116,9 +116,9 @@ def compress_img_DCT(img_before,level,dir_path):
     I = img_before
     st.write('Kích thước ban đầu')
     height, width, channels = I.shape
-    image_size = height * width * channels
+    image_size = height * width * channels * 8
     st.write(image_size)
-    
+
     B, G, R = cv2.split(I)
 
     H = I.shape[0]
@@ -166,6 +166,8 @@ def compress_img_DCT(img_before,level,dir_path):
     
     bitstream_length = len(image_txt)
     byte_size = (bitstream_length + 7) // 8
+    st.write("Tỷ lệ nén")
+    st.write((image_size/byte_size)*100)
     st.write(byte_size)
 
     
