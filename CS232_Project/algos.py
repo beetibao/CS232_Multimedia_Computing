@@ -150,6 +150,8 @@ def compress_img_DCT(img_before,level,dir_path):
 
     arranged = image_DCT.flatten()
     bitstream = get_run_length_encoding(arranged)
+    bitstream = str(arranged.shape[0]) + " " + str(arranged.shape[1]) + " " + bitstream + ";"
+
     file1 = open(dir_path + "/image.txt","w")
     file1.write(bitstream)
     file1.close()
@@ -157,7 +159,7 @@ def compress_img_DCT(img_before,level,dir_path):
     with open(dir_path + '/image.txt', 'r') as myfile:
         image_txt = myfile.read()
 
-    st.write(image_txt)
+    #st.write(image_txt)
 
     time_comp = end_com - start_com
 
