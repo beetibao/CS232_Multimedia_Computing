@@ -12,9 +12,10 @@ import pandas as pd
 def DCT(img,level,dir_path):
     st.header('📍 :blue[Discrete Cosine Transform]')
     st.subheader("Image Before:")
-    #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2YCR_CB)
-    img_before = cv2.cvtColor(np.array(img).astype(np.uint8), cv2.COLOR_RGB2YCR_CB)
+    #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2YCR_CB)
+    
     st.image(img)
     st.write(f"**Image shape :** {img_before.shape}")
         
@@ -31,8 +32,9 @@ def DCT(img,level,dir_path):
     st.subheader("Image After:")
     
     cv2.imwrite(dir_path + '/output_DCT.jpg', img_after)
+
     st.image(Image.open(dir_path + '/output_DCT.jpg'))
-       
+
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({"time_com_sec": time_comp, 
                         "time_de_sec": time_de, 
