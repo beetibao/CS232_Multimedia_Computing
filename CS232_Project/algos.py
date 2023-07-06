@@ -159,7 +159,46 @@ def compress_img_DCT(img_before,level,dir_path):
     with open(dir_path + '/image.txt', 'r') as myfile:
         image_txt = myfile.read()
 
-    #st.write(image_txt)
+    details = image_txt.split()
+
+    # just python-crap to get integer from tokens : h and w are height and width of image (first two items)
+    h = int(''.join(filter(str.isdigit, details[0])))
+    w = int(''.join(filter(str.isdigit, details[1])))
+
+    # declare an array of zeros (It helps to reconstruct bigger array on which IDCT and all has to be applied)
+    array = np.zeros(h*w).astype(int)
+    # some loop var initialisation
+    k = 0
+    i = 2
+    x = 0
+    j = 0
+
+    # This loop gives us reconstructed array of size of image
+
+    while k < array.shape[0]:
+    # Oh! image has ended
+        if(details[i] == ';'):
+            break
+    # This is imp! note that to get negative numbers in array check for - sign in string
+        if "-" not in details[i]:
+            array[k] = int(''.join(filter(str.isdigit, details[i])))        
+        else:
+            array[k] = -1*int(''.join(filter(str.isdigit, details[i])))        
+
+        if(i+3 < len(details)):
+            j = int(''.join(filter(str.isdigit, details[i+3])))
+
+        if j == 0:
+            k = k + 1
+        else:                
+            k = k + j + 1        
+
+        i = i + 2
+
+    array = np.reshape(array,(h,w))
+        #st.write(image_txt)
+    st.write('finish')
+    st.write(array)
 
     time_comp = end_com - start_com
 
