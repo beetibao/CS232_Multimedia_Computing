@@ -116,7 +116,7 @@ def compress_img_DCT(img_before,level,dir_path):
     I = img_before
     st.write('Kích thước ban đầu')
     height, width, channels = I.shape
-    image_size = height * width * channels * 8
+    image_size = height * width * channels
     st.write(image_size)
 
     B, G, R = cv2.split(I)
