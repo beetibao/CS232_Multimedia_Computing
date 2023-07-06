@@ -50,8 +50,8 @@ with st.form("first_form"):
         svd = st.checkbox("**Singular Value Decomposition**", key="svd")
         
     st.subheader(":blue[3. Choose level]")
-    level = st.number_input('**Choose a number of level compression**', min_value = 10, 
-                            max_value = 90, value = 50, step = 10, key = 'level', format = '%d')
+    level = st.number_input('**Choose a number of level compression**', min_value = 0, 
+                            max_value = 100, value = 50, step = 5, key = 'level', format = '%d')
     
     submitted = st.form_submit_button("Run")
 
