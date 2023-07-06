@@ -159,6 +159,9 @@ def compress_img_DCT(img_before,level,dir_path):
     with open(dir_path + '/image.txt', 'r') as myfile:
         image_txt = myfile.read()
 
+    st.write(bitstream)
+    st.write(image_txt)
+
     details = image_txt.split()
 
     # just python-crap to get integer from tokens : h and w are height and width of image (first two items)
