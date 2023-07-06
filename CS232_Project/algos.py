@@ -147,6 +147,13 @@ def compress_img_DCT(img_before,level,dir_path):
     end_com = time.time()
     cv2.imwrite(dir_path +'/After_Quantiz'+str(level)+'.jpg',tmp)
     st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
+
+    arranged = image_DCT.flatten()
+    bitstream = get_run_length_encoding(arranged)
+    file1 = open(dir_path + "image.txt","w")
+    file1.write(bitstream)
+    file1.close()
+
     time_comp = end_com - start_com
 
     return C_B,C_G,C_R,Q,T,T_prime,image_DCT,time_comp
@@ -154,6 +161,7 @@ def compress_img_DCT(img_before,level,dir_path):
 def decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,fileout):
     start_de = time.time()
     st.text("Decompress Process.........")
+    
     N_R = decompress(C_R,Q,T,T_prime)
     N_G = decompress(C_G,Q,T,T_prime)
     N_B = decompress(C_B,Q,T,T_prime)
