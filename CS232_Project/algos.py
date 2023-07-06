@@ -164,7 +164,7 @@ def compress_img_DCT(img_before,level,dir_path):
     with open(dir_path + '/image.txt', 'r') as myfile:
         image_txt = myfile.read()
     
-    bitstream_length = len(image_txt)
+    byte_size = len(image_txt)
     #byte_size = (bitstream_length + 7) // 8
     st.write("Tỷ lệ nén")
     st.write(((image_size-byte_size)/image_size)*100)
