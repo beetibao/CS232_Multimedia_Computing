@@ -37,7 +37,10 @@ def DCT(img,level,dir_path):
     cv2.imwrite(dir_path + '/output_DCT.jpg', img_after)
 
     st.image(Image.open(dir_path + '/output_DCT.jpg'))
-
+    st.write("Size before:")
+    st.write(os.path.getsize(img))
+    st.write("Size after:")
+    st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
     #comp_ratio = round(((img_size-img_rle_size)/img_size))*100
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({"time_com_sec": time_comp, 
