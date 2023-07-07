@@ -245,8 +245,8 @@ def evaluate_DCT(I_before,I_after):
     rms = np.sqrt(np.sum(np.square(I_after-I_before)))/(m*n)
 
     # snr = np.sum(np.square(I_after))/np.sum(np.square(I_after-I_before))
-    I_after_round = np.round(I_after).astype(np.uint8)
-    snr = np.sum(np.square(I_after_round))/np.sum(np.square(I_after_round-I_before))
+    # I_after_round = np.round(I_after).astype(np.uint8)
+    snr = np.sum(np.square(I_after))/np.sum(np.square(I_after-I_before))
 
     return rms, snr
 
