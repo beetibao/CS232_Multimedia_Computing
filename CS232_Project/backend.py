@@ -31,7 +31,7 @@ def DCT(img,level,dir_path):
                         RMS = [], 
                         SNR = [] )
        
-    image_DCT, time_comp, img_size = compress_img_DCT(img_before,level,dir_path)
+    time_comp, img_size = compress_img_DCT(img_before,level,dir_path)
 
     img_after, time_de, img_rle_size = decompress_img_DCT(dir_path,level)
     st.subheader("Image After:")

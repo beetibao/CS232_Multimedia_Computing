@@ -206,7 +206,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     time_comp = end_com - start_com
 
-    return image_DCT,time_comp,img_size
+    return time_comp,img_size
 
 def decompress_img_DCT(dir_path,level):
     st.text("Decompress Process.........")
