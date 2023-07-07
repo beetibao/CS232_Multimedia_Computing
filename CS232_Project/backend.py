@@ -8,6 +8,10 @@ import cv2
 import os
 import numpy as np
 import pandas as pd 
+import algos_SVD
+from algos_SVD import compress_and_display_image
+from algos_SVD import calculate_metrics
+from algos_SVD import compress_and_plot
 
 def DCT(img,level,dir_path):
     st.header('📍 :blue[Discrete Cosine Transform]')
@@ -47,3 +51,35 @@ def DCT(img,level,dir_path):
     result_DCT = pd.DataFrame([metric_dct],index=None)
     st.subheader("Result:")
     st.table(data=result_DCT)
+
+def SVD():
+    st.header('📍 :red[Singular Value Decomposition])
+    st.subheader("Image before: ")
+    img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+
+    st.image(img)
+    st.write(f"**Image shape :** {img_before.shape}")
+
+    order = st.slider("Compression Order", 1, 640, 1)
+    compressed_img ,compressed_img_shape, compression_time = compress_and_display_image(img, order)
+    st.subheader("Image after: ")
+    
+    cv2.imwrite(dir_path + '/output_SVD.jpg' + compressed_img)
+    st.image(Image.open(dir_path + '/output_SVD.jpg'))
+    
+             
+    rmse, snr, compression_ratio = calculate_metrics(img, compressed_img_shape, order)
+    st.write("Compression time: ", compression_time, 'seconds')
+    st.write("Ratio compressed size / original size: ", compression_ratio)
+    st.write("Compressed image size is " + str(round(compression_ratio * 100, 2)) + " % of the original image ")
+    st.write("RMSE at order = {} is {:.2f}".format(order, rmse))
+    st.write("SNR at order = {} is {:.2f}".format(order, snr))
+    
+    st.subheader("Compression at different orders: ")
+    compress_and_plot(img)
+    
+
+    
+    
+    
+    

@@ -1,6 +1,7 @@
 import streamlit as st
 from PIL import Image
 from backend import DCT
+from backend import SVD
 import cv2
 import numpy as np
 import pandas as pd 
