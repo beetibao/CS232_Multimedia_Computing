@@ -177,7 +177,7 @@ def compress_img_DCT(img_before,level,dir_path):
     D_G = dct(G,T,T_prime)
     D_B = dct(B,T,T_prime)
 
-    tmp = cv2.merge((C_B,C_G,C_R))
+    tmp = cv2.merge((D_B,D_G,D_R))
 
     st.text("Quantiz Process.........")
     C_R = quantiz(D_R,Q)
