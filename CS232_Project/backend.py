@@ -31,7 +31,7 @@ def DCT(img,level,dir_path):
        
     C_R,C_B,C_G,T,T_prime,Q,time_comp = compress_img_DCT(img_before,level,dir_path)
 
-    img_after, time_de = decompress_img_DCT(C_R,C_B,C_G,dir_path)
+    img_after, time_de = decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path)
     st.subheader("Image After:")
     
     cv2.imwrite(dir_path + '/output_DCT.jpg', img_after)
