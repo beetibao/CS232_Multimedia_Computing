@@ -9,22 +9,22 @@ import streamlit as st
 from PIL import Image
 from zigzag import *
 
-def get_run_length_encoding(image):
-    i = 0
-    skip = 0
-    stream = []    
-    bitstream = ""
-    image = image.astype(int)
-    while i < image.shape[0]:
-        if image[i] != 0:            
-            stream.append((image[i],skip))
-            bitstream = bitstream + str(image[i])+ " " + str(skip) + " "
-            skip = 0
-        else:
-            skip = skip + 1
-        i = i + 1
+# def get_run_length_encoding(image):
+#     i = 0
+#     skip = 0
+#     stream = []    
+#     bitstream = ""
+#     image = image.astype(int)
+#     while i < image.shape[0]:
+#         if image[i] != 0:            
+#             stream.append((image[i],skip))
+#             bitstream = bitstream + str(image[i])+ " " + str(skip) + " "
+#             skip = 0
+#         else:
+#             skip = skip + 1
+#         i = i + 1
 
-    return bitstream
+#     return bitstream
 
 def dct_coeff():
     T = np.zeros([8,8])
@@ -109,50 +109,50 @@ def decompress(C,Q,T,T_prime):
 
     return N
 
-def covert_txt_to_img(dir_path,file):
-    with open(dir_path + file, 'r') as myfile:
-        image_txt = myfile.read()
+# def covert_txt_to_img(dir_path,file):
+#     with open(dir_path + file, 'r') as myfile:
+#         image_txt = myfile.read()
     
-    img_rle_size = len(image_txt)
-    details = image_txt.split()
+#     img_rle_size = len(image_txt)
+#     details = image_txt.split()
 
-    # just python-crap to get integer from tokens : h and w are height and width of image (first two items)
-    h = int(''.join(filter(str.isdigit, details[0])))
-    w = int(''.join(filter(str.isdigit, details[1])))
+#     # just python-crap to get integer from tokens : h and w are height and width of image (first two items)
+#     h = int(''.join(filter(str.isdigit, details[0])))
+#     w = int(''.join(filter(str.isdigit, details[1])))
 
-    # declare an array of zeros (It helps to reconstruct bigger array on which IDCT and all has to be applied)
-    array = np.zeros(h*w).astype(int)
-    # some loop var initialisation
-    k = 0
-    i = 2
-    x = 0
-    j = 0
+#     # declare an array of zeros (It helps to reconstruct bigger array on which IDCT and all has to be applied)
+#     array = np.zeros(h*w).astype(int)
+#     # some loop var initialisation
+#     k = 0
+#     i = 2
+#     x = 0
+#     j = 0
 
-    # This loop gives us reconstructed array of size of image
-    while k < array.shape[0]:
-    # Oh! image has ended
-        if(details[i] == ';'):
-            break
-    # This is imp! note that to get negative numbers in array check for - sign in string
-        if "-" not in details[i]:
-            array[k] = int(''.join(filter(str.isdigit, details[i])))        
-        else:
-            array[k] = -1*int(''.join(filter(str.isdigit, details[i])))        
+#     # This loop gives us reconstructed array of size of image
+#     while k < array.shape[0]:
+#     # Oh! image has ended
+#         if(details[i] == ';'):
+#             break
+#     # This is imp! note that to get negative numbers in array check for - sign in string
+#         if "-" not in details[i]:
+#             array[k] = int(''.join(filter(str.isdigit, details[i])))        
+#         else:
+#             array[k] = - 1 * int(''.join(filter(str.isdigit, details[i])))        
 
-        if(i+3 < len(details)):
-            j = int(''.join(filter(str.isdigit, details[i+3])))
+#         if(i+3 < len(details)):
+#             j = int(''.join(filter(str.isdigit, details[i+3])))
 
-        if j == 0:
-            k = k + 1
-        else:                
-            k = k + j + 1        
+#         if j == 0:
+#             k = k + 1
+#         else:                
+#             k = k + j + 1        
 
-        i = i + 2
+#         i = i + 2
 
-    matrix_img = np.reshape(array,(h,w))
-    st.write("Step")
-    st.write(matrix_img.shape)
-    return matrix_img, img_rle_size
+#     matrix_img = np.reshape(array,(h,w))
+#     st.write("Step")
+#     st.write(matrix_img.shape)
+#     return matrix_img, img_rle_size
 
     
 def compress_img_DCT(img_before,level,dir_path):
@@ -189,35 +189,20 @@ def compress_img_DCT(img_before,level,dir_path):
     C_B[C_B==0] = 0
 
     image_DCT = cv2.merge((C_B,C_G,C_R))
-    st.write('image_DCT shape')
-    st.write(image_DCT.shape)
+    # st.write('image_DCT shape')
+    # st.write(image_DCT.shape)
 
-    flatten_C_R = C_R.flatten()
-    flatten_C_G = C_G.flatten()
-    flatten_C_B = C_B.flatten()
+    # flatten_C_R = C_R.flatten()
+    # flatten_C_G = C_G.flatten()
+    # flatten_C_B = C_B.flatten()
     
-    rle_C_R = get_run_length_encoding(flatten_C_R)
-    rle_C_G= get_run_length_encoding(flatten_C_G)
-    rle_C_B= get_run_length_encoding(flatten_C_B)
+    # rle_C_R = get_run_length_encoding(flatten_C_R)
+    # rle_C_G= get_run_length_encoding(flatten_C_G)
+    # rle_C_B= get_run_length_encoding(flatten_C_B)
   
-    img_rle_C_G = str(C_G.shape[0]) + " " + str(C_G.shape[1]) + " " + rle_C_G + ";"
-    img_rle_C_R = str(C_R.shape[0]) + " " + str(C_R.shape[1]) + " " + rle_C_R + ";"
-    img_rle_C_B = str(C_B.shape[0]) + " " + str(C_B.shape[1]) + " " + rle_C_B + ";"
-
-    file = open(dir_path + "/img_rle_C_G.txt","w+")
-    file.write(img_rle_C_G)
-    file.close()
-    with open(dir_path + "/img_rle_C_G.txt") as myfile:
-        image_txt = myfile.read()
-
-    st.write(image_txt)
-    file = open(dir_path + "/img_rle_C_R.txt","w+")
-    file.write(img_rle_C_R)
-    file.close()
-
-    file = open(dir_path + "/img_rle_C_B.txt","w+")
-    file.write(img_rle_C_B)
-    file.close()
+    # img_rle_C_G = str(C_G.shape[0]) + " " + str(C_G.shape[1]) + " " + rle_C_G + ";"
+    # img_rle_C_R = str(C_R.shape[0]) + " " + str(C_R.shape[1]) + " " + rle_C_R + ";"
+    # img_rle_C_B = str(C_B.shape[0]) + " " + str(C_B.shape[1]) + " " + rle_C_B + ";"
 
     end_com = time.time()
     
@@ -231,29 +216,15 @@ def compress_img_DCT(img_before,level,dir_path):
 
     time_comp = end_com - start_com
 
-    return time_comp, img_size
+    return C_R,C_B,C_G,T,T_prime,Q,time_comp
 
-def decompress_img_DCT(dir_path,level):
+def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path):
     st.text("Decompress Process.........")
     start_de = time.time()
 
-    matrix_img_B, img_rle_size_B = covert_txt_to_img(dir_path,"/img_rle_C_B.txt")
-    matrix_img_G, img_rle_size_G = covert_txt_to_img(dir_path,"/img_rle_C_G.txt")
-    matrix_img_R, img_rle_size_R = covert_txt_to_img(dir_path,"/img_rle_C_R.txt")
-
-    img_rle_size = img_rle_size_B + img_rle_size_G + img_rle_size_R
-    T = dct_coeff()
-    T_prime = inv(T)
-    Q = quantization_level(level)
-
-    #C_B, C_G, C_R = matrix_img_B, matrix_img_G, matrix_img_R
-
-    # N_R = decompress(C_R,Q,T,T_prime)
-    # N_G = decompress(C_G,Q,T,T_prime)
-    # N_B = decompress(C_B,Q,T,T_prime)
-    N_R = decompress(matrix_img_R,Q,T,T_prime)
-    N_G = decompress(matrix_img_G,Q,T,T_prime)
-    N_B = decompress(matrix_img_B,Q,T,T_prime)
+    N_R = decompress(C_R,Q,T,T_prime)
+    N_G = decompress(C_G,Q,T,T_prime)
+    N_B = decompress(C_B,Q,T,T_prime)
 
     N_R = np.astype(np.uint8)
     N_G = np.astype(np.uint8)
@@ -265,7 +236,7 @@ def decompress_img_DCT(dir_path,level):
     time_de = end_de - start_de
     #cv2.imwrite(fileout,N_I)
     st.success('Done!', icon="✅")
-    return image_de, time_de, img_rle_size
+    return image_de, time_de
     
 def evaluate_DCT(I_before,I_after):
     #print("----Before")

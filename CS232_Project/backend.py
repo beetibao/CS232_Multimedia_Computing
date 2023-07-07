@@ -29,21 +29,20 @@ def DCT(img,level,dir_path):
                         RMS = [], 
                         SNR = [] )
        
-    time_comp, img_size = compress_img_DCT(img_before,level,dir_path)
+    C_R,C_B,C_G,T,T_prime,Q,time_comp = compress_img_DCT(img_before,level,dir_path)
 
-    img_after, time_de, img_rle_size = decompress_img_DCT(dir_path,level)
+    img_after, time_de = decompress_img_DCT(C_R,C_B,C_G,dir_path)
     st.subheader("Image After:")
     
     cv2.imwrite(dir_path + '/output_DCT.jpg', img_after)
 
     st.image(Image.open(dir_path + '/output_DCT.jpg'))
 
-    comp_ratio = round(((img_size-img_rle_size)/img_size))*100
+    #comp_ratio = round(((img_size-img_rle_size)/img_size))*100
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({"time_com_sec": time_comp, 
                         "time_de_sec": time_de, 
                         "total_time_sec": np.round(time_de + time_comp,3),
-                        "compression_ratio": comp_ratio,
                         "RMS": np.round(rms,4),
                         "SNR": np.round(snr,4)})
     
