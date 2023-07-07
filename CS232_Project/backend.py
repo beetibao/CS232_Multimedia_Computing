@@ -29,9 +29,9 @@ def DCT(img,level,dir_path):
                         RMS = [], 
                         SNR = [] )
        
-    C_R,C_B,C_G,T,T_prime,Q,time_comp = compress_img_DCT(img_before,level,dir_path)
+    C_B,C_G,C_R,Q,T,T_prime,time_comp = compress_img_DCT(img_before,level,dir_path)
 
-    img_after, time_de = decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path)
+    img_after, time_de = decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,time_comp,dir_path)
    
     st.write("Size before:")
     st.write(os.path.getsize(img))

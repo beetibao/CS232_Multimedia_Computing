@@ -76,22 +76,24 @@ def decompress_mul(a,b):
             tmp[i,j] = a[i,j]*b[i,j]
     return tmp
 
+
 def decompress(C,Q,T,T_prime):
-    R = np.zeros(C.shape)
+    R = np.zeros(C.shape) 
     mask = np.zeros([8,8])
-    for i in stqdm(range(C.shape[0]//8)):
+    for i in range(C.shape[0]//8):
         for j in range(C.shape[1]//8):
             mask = decompress_mul(C[8*i:8*i+8,8*j:8*j+8],Q)
             R[8*i:8*i+8,8*j:8*j+8] = mask
-
+    
     N = np.zeros(C.shape)
-
-    for i in stqdm(range(R.shape[0]//8)):
+    
+    for i in range(R.shape[0]//8):
         for j in range(R.shape[1]//8):
             mask = T_prime @ R[8*i:8*i+8,8*j:8*j+8] @ T
             N[8*i:8*i+8,8*j:8*j+8] = np.round(mask) + 128*np.ones([8,8])
-
+    
     return N
+
     
 def compress_img_DCT(img_before,level,dir_path):
     start_com = time.time()
@@ -138,7 +140,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     time_comp = end_com - start_com
 
-    return C_R,C_B,C_G,T,T_prime,Q,time_comp
+    return C_B,C_G,C_R,Q,T,T_prime,time_comp
 
 def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path):
     st.text("Decompress Process.........")
