@@ -7,24 +7,7 @@ from numpy.linalg import inv
 from stqdm import stqdm
 import streamlit as st
 from PIL import Image
-from zigzag import *
 
-# def get_run_length_encoding(image):
-#     i = 0
-#     skip = 0
-#     stream = []    
-#     bitstream = ""
-#     image = image.astype(int)
-#     while i < image.shape[0]:
-#         if image[i] != 0:            
-#             stream.append((image[i],skip))
-#             bitstream = bitstream + str(image[i])+ " " + str(skip) + " "
-#             skip = 0
-#         else:
-#             skip = skip + 1
-#         i = i + 1
-
-#     return bitstream
 
 def dct_coeff():
     T = np.zeros([8,8])
@@ -156,7 +139,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     return C_R,C_B,C_G,T,T_prime,Q,time_comp
 
-def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q):
+def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path):
     st.text("Decompress Process.........")
     start_de = time.time()
 
@@ -174,6 +157,11 @@ def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q):
     time_de = end_de - start_de
     
     st.success('Done!', icon="✅")
+    st.subheader("Image After:")
+    cv2.imwrite(dir_path + '/output_DCT.jpg', image_de)
+    st.image(Image.open(dir_path + '/output_DCT.jpg'))
+    st.write("Size after:")
+    st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
     return image_de, time_de
     
 def evaluate_DCT(I_before,I_after):
