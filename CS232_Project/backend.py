@@ -7,9 +7,9 @@ import cv2
 import os
 import numpy as np
 import pandas as pd 
-from algos_SVD import compress_and_display_image
-from algos_SVD import calculate_metrics
-from algos_SVD import compress_and_plot
+#from algos_SVD import compress_and_display_image
+#from algos_SVD import calculate_metrics
+#from algos_SVD import compress_and_plot
 
 def DCT(img,level,dir_path):
     st.header('📍 :blue[Discrete Cosine Transform]')
