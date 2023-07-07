@@ -33,14 +33,12 @@ def DCT(img,level,dir_path):
 
     img_after, time_de = decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q)
     st.subheader("Image After:")
-    
     cv2.imwrite(dir_path + '/output_DCT.jpg', img_after)
-
     st.image(Image.open(dir_path + '/output_DCT.jpg'))
-    st.write("Size before:")
-    st.write(os.path.getsize(img))
-    st.write("Size after:")
-    st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
+    # st.write("Size before:")
+    # st.write(os.path.getsize(img))
+    # st.write("Size after:")
+    # st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
     #comp_ratio = round(((img_size-img_rle_size)/img_size))*100
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({"time_com_sec": time_comp, 
