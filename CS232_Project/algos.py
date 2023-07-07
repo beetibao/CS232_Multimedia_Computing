@@ -110,11 +110,54 @@ def decompress(C,Q,T,T_prime):
 
     return N
 
+def covert_txt_to_img(dir_path):
+    with open(dir_path + '/image_compress_DCT.txt', 'r') as myfile:
+        image_txt = myfile.read()
+    
+    img_rle_size = len(image_txt)
+    details = image_txt.split()
 
+    # just python-crap to get integer from tokens : h and w are height and width of image (first two items)
+    h = int(''.join(filter(str.isdigit, details[0])))
+    w = int(''.join(filter(str.isdigit, details[1])))
+
+    # declare an array of zeros (It helps to reconstruct bigger array on which IDCT and all has to be applied)
+    array = np.zeros(h*w).astype(int)
+    # some loop var initialisation
+    k = 0
+    i = 2
+    x = 0
+    j = 0
+
+    # This loop gives us reconstructed array of size of image
+    while k < array.shape[0]:
+    # Oh! image has ended
+        if(details[i] == ';'):
+            break
+    # This is imp! note that to get negative numbers in array check for - sign in string
+        if "-" not in details[i]:
+            array[k] = int(''.join(filter(str.isdigit, details[i])))        
+        else:
+            array[k] = -1*int(''.join(filter(str.isdigit, details[i])))        
+
+        if(i+3 < len(details)):
+            j = int(''.join(filter(str.isdigit, details[i+3])))
+
+        if j == 0:
+            k = k + 1
+        else:                
+            k = k + j + 1        
+
+        i = i + 2
+
+    matrix_img = np.reshape(array,(h,w))
+    
+    return matrix_img, img_rle_size
+
+    
 def compress_img_DCT(img_before,level,dir_path):
     start_com = time.time()
     I = img_before
-
     B, G, R = cv2.split(I)
 
     H = I.shape[0]
@@ -145,93 +188,44 @@ def compress_img_DCT(img_before,level,dir_path):
 
     image_DCT = cv2.merge((C_B,C_G,C_R))
 
+    flatten_image_DCT = image_DCT.flatten()
+    img_rle = get_run_length_encoding(flatten_image_DCT)
+    img_rle = str(image_DCT.shape[0]) + " " + str(image_DCT.shape[1]) + " " + img_rle + ";"
+
+    file = open(dir_path + "/image_compress_DCT.txt","w+")
+    file.write(img_rle)
+    file.close()
+
     end_com = time.time()
-    cv2.imwrite(dir_path +'/After_Quantiz'+str(level)+'.jpg',tmp)
-    st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
-
-    arranged = image_DCT.flatten()
-    bitstream = get_run_length_encoding(arranged)
-    bitstream = str(image_DCT.shape[0]) + " " + str(image_DCT.shape[1]) + " " + bitstream + ";"
-
-    file1 = open(dir_path + "/image.txt","w+")
-    file1.write(bitstream)
-    file1.close()
-
-    with open(dir_path + '/image.txt', 'r') as myfile:
-        image_txt = myfile.read()
     
-    byte_size = len(image_txt)
-    #byte_size = (bitstream_length + 7) // 8
-    st.write('Kích thước ban đầu')
     height, width, channels = I.shape
-    image_size = height * width * channels
-    st.write(image_size)
-    st.write('byte_size_text')
-    st.write(byte_size)
-    st.write("Tỷ lệ nén")
-    st.write(((image_size-byte_size)/image_size)*100)
-    # st.write(byte_size)
-
+    img_size = height * width * channels
     
-    st.write(bitstream)
-    st.write(image_txt)
-
-    details = image_txt.split()
-
-    # just python-crap to get integer from tokens : h and w are height and width of image (first two items)
-    h = int(''.join(filter(str.isdigit, details[0])))
-    w = int(''.join(filter(str.isdigit, details[1])))
-
-    # declare an array of zeros (It helps to reconstruct bigger array on which IDCT and all has to be applied)
-    array = np.zeros(h*w).astype(int)
-    # some loop var initialisation
-    k = 0
-    i = 2
-    x = 0
-    j = 0
-
-    # This loop gives us reconstructed array of size of image
-
-    while k < array.shape[0]:
-    # Oh! image has ended
-        if(details[i] == ';'):
-            break
-    # This is imp! note that to get negative numbers in array check for - sign in string
-        if "-" not in details[i]:
-            array[k] = int(''.join(filter(str.isdigit, details[i])))        
-        else:
-            array[k] = -1*int(''.join(filter(str.isdigit, details[i])))        
-
-        if(i+3 < len(details)):
-            j = int(''.join(filter(str.isdigit, details[i+3])))
-
-        if j == 0:
-            k = k + 1
-        else:                
-            k = k + j + 1        
-
-        i = i + 2
-
-    array = np.reshape(array,(h,w))
-        #st.write(image_txt)
-    st.write('finish')
-    st.write(array)
+    cv2.imwrite(dir_path +'/After_Quantiz'+str(level)+'.jpg',image_DCT)
+    st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
 
     time_comp = end_com - start_com
 
-    return C_B,C_G,C_R,Q,T,T_prime,image_DCT,time_comp
+    return image_DCT,time_comp,img_size
 
-def decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,fileout):
-    start_de = time.time()
+def decompress_img_DCT(dir_path,level):
     st.text("Decompress Process.........")
+    start_de = time.time()
+    matrix_img, img_rle_size = covert_txt_to_img(dir_path)
+
+    T = dct_coeff()
+    T_prime = inv(T)
+    Q = quantization_level(level)
+
+    C_B, C_G, C_R = cv2.split(matrix_img)
 
     N_R = decompress(C_R,Q,T,T_prime)
     N_G = decompress(C_G,Q,T,T_prime)
     N_B = decompress(C_B,Q,T,T_prime)
     
-    #N_R = np.round(N_R).astype(np.uint8)
-    #N_G = np.round(N_G).astype(np.uint8)
-    #N_B = np.round(N_B).astype(np.uint8)
+    N_R = np.astype(np.uint8)
+    N_G = np.astype(np.uint8)
+    N_B = np.astype(np.uint8)
 
     image_de = cv2.merge((N_B, N_G, N_R))
     #image_de = cv2.merge((N_R, N_G, N_B))
@@ -239,7 +233,7 @@ def decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,fileout):
     time_de = end_de - start_de
     #cv2.imwrite(fileout,N_I)
     st.success('Done!', icon="✅")
-    return image_de, time_de
+    return image_de, time_de, img_rle_size
     
 def evaluate_DCT(I_before,I_after):
     #print("----Before")
