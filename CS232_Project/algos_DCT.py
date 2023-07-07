@@ -226,9 +226,9 @@ def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path):
     N_G = decompress(C_G,Q,T,T_prime)
     N_B = decompress(C_B,Q,T,T_prime)
 
-    N_R = np.astype(np.uint8)
-    N_G = np.astype(np.uint8)
-    N_B = np.astype(np.uint8)
+    #N_R = np.astype(np.uint8)
+    #N_G = np.astype(np.uint8)
+    #N_B = np.astype(np.uint8)
 
     image_de = cv2.merge((N_B, N_G, N_R))
     #image_de = cv2.merge((N_R, N_G, N_B))
