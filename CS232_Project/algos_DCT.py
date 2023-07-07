@@ -149,7 +149,7 @@ def covert_txt_to_img(dir_path):
 
         i = i + 2
 
-    matrix_img = np.reshape(array,(h,w,3))
+    matrix_img = np.reshape(array,(h,w))
     st.write(matrix_img.shape)
     return matrix_img, img_rle_size
 
@@ -188,7 +188,8 @@ def compress_img_DCT(img_before,level,dir_path):
     C_B[C_B==0] = 0
 
     image_DCT = cv2.merge((C_B,C_G,C_R))
-
+    st.write('image_DCT shape')
+    st.write(image_DCT.shape)
     flatten_image_DCT = image_DCT.flatten()
     img_rle = get_run_length_encoding(flatten_image_DCT)
     img_rle = str(image_DCT.shape[0]) + " " + str(image_DCT.shape[1]) + " " + img_rle + ";"
