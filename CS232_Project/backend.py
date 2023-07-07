@@ -37,12 +37,13 @@ def DCT(img,level,dir_path):
     cv2.imwrite(dir_path + '/output_DCT.jpg', img_after)
 
     st.image(Image.open(dir_path + '/output_DCT.jpg'))
+
     comp_ratio = round(((img_size-img_rle_size)/img_size))*100
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({"time_com_sec": time_comp, 
                         "time_de_sec": time_de, 
                         "total_time_sec": np.round(time_de + time_comp,3),
-                        "compression_ratio": comp_ratio ,
+                        "compression_ratio": comp_ratio,
                         "RMS": np.round(rms,4),
                         "SNR": np.round(snr,4)})
     

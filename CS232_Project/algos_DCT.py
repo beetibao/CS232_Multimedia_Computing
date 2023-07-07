@@ -61,11 +61,11 @@ def quantization_level(n):
 def dct(M,T,T_prime):
     tmp = np.zeros(M.shape)
     mask = np.zeros([8,8])
-    for i in stqdm(range(M.shape[0]//8)):
+    for i in range(M.shape[0]//8):
         for j in range(M.shape[1]//8):
             mask = M[8*i:8*i+8,8*j:8*j+8]
             tmp[8*i:8*i+8,8*j:8*j+8] = T @ mask @ T_prime
-
+            
     return (tmp)
 
 def quantiz_div(a,b):
@@ -75,11 +75,10 @@ def quantiz_div(a,b):
             tmp[i,j] = np.round(a[i,j]/b[i,j])
     return tmp
 
-
 def quantiz(D,Q):
     tmp = np.zeros(D.shape)
     mask = np.zeros([8,8])
-    for i in stqdm(range(D.shape[0]//8)):
+    for i in range(D.shape[0]//8):
         for j in range(D.shape[1]//8):
             mask = quantiz_div(D[8*i:8*i+8,8*j:8*j+8],Q)
             tmp[8*i:8*i+8,8*j:8*j+8] = mask
@@ -111,7 +110,7 @@ def decompress(C,Q,T,T_prime):
     return N
 
 def covert_txt_to_img(dir_path):
-    with open(dir_path + '/image_compress_DCT.txt', 'r') as myfile:
+    with open(dir_path + '/image_DCT.txt', 'r') as myfile:
         image_txt = myfile.read()
     
     img_rle_size = len(image_txt)
@@ -173,6 +172,7 @@ def compress_img_DCT(img_before,level,dir_path):
     Q = quantization_level(level)
 
     st.text("DCT Process.........")
+
     D_R = dct(R,T,T_prime)
     D_G = dct(G,T,T_prime)
     D_B = dct(B,T,T_prime)
@@ -193,7 +193,7 @@ def compress_img_DCT(img_before,level,dir_path):
     img_rle = get_run_length_encoding(flatten_image_DCT)
     img_rle = str(image_DCT.shape[0]) + " " + str(image_DCT.shape[1]) + " " + img_rle + ";"
 
-    file = open(dir_path + "/image_compress_DCT.txt","w+")
+    file = open(dir_path + "/image_DCT.txt","w+")
     file.write(img_rle)
     file.close()
 
