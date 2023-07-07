@@ -34,7 +34,7 @@ def DCT(img,level,dir_path):
     img_after, time_de = decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,dir_path)
    
     st.write("Size before:")
-    st.write(os.path.getsize(img))
+    st.write(os.getsize(img))
     # st.write("Size after:")
     # st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
     #comp_ratio = round(((img_size-img_rle_size)/img_size))*100
