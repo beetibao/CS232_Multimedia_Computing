@@ -246,12 +246,15 @@ def decompress_img_DCT(dir_path,level):
     T_prime = inv(T)
     Q = quantization_level(level)
 
-    C_B, C_G, C_R = matrix_img_B, matrix_img_G, matrix_img_R
+    #C_B, C_G, C_R = matrix_img_B, matrix_img_G, matrix_img_R
 
-    N_R = decompress(C_R,Q,T,T_prime)
-    N_G = decompress(C_G,Q,T,T_prime)
-    N_B = decompress(C_B,Q,T,T_prime)
-    
+    # N_R = decompress(C_R,Q,T,T_prime)
+    # N_G = decompress(C_G,Q,T,T_prime)
+    # N_B = decompress(C_B,Q,T,T_prime)
+    N_R = decompress(matrix_img_R,Q,T,T_prime)
+    N_G = decompress(matrix_img_G,Q,T,T_prime)
+    N_B = decompress(matrix_img_B,Q,T,T_prime)
+
     N_R = np.astype(np.uint8)
     N_G = np.astype(np.uint8)
     N_B = np.astype(np.uint8)
