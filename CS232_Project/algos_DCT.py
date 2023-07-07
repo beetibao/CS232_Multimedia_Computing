@@ -142,7 +142,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     return C_B,C_G,C_R,Q,T,T_prime,time_comp
 
-def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path):
+def decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,dir_path):
     st.text("Decompress Process.........")
     start_de = time.time()
 
