@@ -149,7 +149,7 @@ def covert_txt_to_img(dir_path):
 
         i = i + 2
 
-    matrix_img = np.reshape(array,(h,w))
+    matrix_img = np.reshape(array,(h,w,3))
     st.write(matrix_img.shape)
     return matrix_img, img_rle_size
 
