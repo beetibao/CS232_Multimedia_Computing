@@ -18,12 +18,10 @@ def DCT(img,level,dir_path):
     img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
     cv2.imwrite(dir_path + '/input_.jpg', img_before)
     st.image(Image.open(dir_path + '/input_.jpg'))
-    st.write("Size before:")
-    st.write(os.path.getsize(dir_path + '/input_.jpg'))
+    img_size = os.path.getsize(dir_path + '/input_.jpg')
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2YCR_CB)
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2YCR_CB)
-
-    st.image(img)
+    #st.image(img)
     st.write(f"**Image shape :** {img_before.shape}")
         
     metric_dct = dict(  level = level, 
@@ -40,12 +38,13 @@ def DCT(img,level,dir_path):
    
     
     # st.write("Size after:")
-    # st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
-    #comp_ratio = round(((img_size-img_rle_size)/img_size))*100
+    img_size_after = os.path.getsize(dir_path + '/output_DCT.jpg')
+    comp_ratio = round(((img_size-img_size_after)/img_size))*100
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({"time_com_sec": time_comp, 
                         "time_de_sec": time_de, 
                         "total_time_sec": np.round(time_de + time_comp,3),
+                        "compression_ratio": comp_ratio,
                         "RMS": np.round(rms,4),
                         "SNR": np.round(snr,4)})
     
