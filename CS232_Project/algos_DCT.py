@@ -163,8 +163,7 @@ def decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,dir_path):
     st.subheader("Image After:")
     cv2.imwrite(dir_path + '/output_DCT.jpg', image_de)
     st.image(Image.open(dir_path + '/output_DCT.jpg'))
-    st.write("Size after:")
-    st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
+   
     return image_de, time_de
     
 def evaluate_DCT(I_before,I_after):
