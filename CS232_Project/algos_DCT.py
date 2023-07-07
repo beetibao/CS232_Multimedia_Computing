@@ -150,9 +150,9 @@ def decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,dir_path):
     N_G = decompress(C_G,Q,T,T_prime)
     N_B = decompress(C_B,Q,T,T_prime)
 
-    N_R = np.astype(np.uint8)
-    N_G = np.astype(np.uint8)
-    N_B = np.astype(np.uint8)
+    # N_R = np.astype(np.uint8)
+    # N_G = np.astype(np.uint8)
+    # N_B = np.astype(np.uint8)
 
     image_de = cv2.merge((N_B, N_G, N_R))
    
@@ -176,8 +176,8 @@ def evaluate_DCT(I_before,I_after):
     rms = np.sqrt(np.sum(np.square(I_after-I_before)))/(m*n)
 
     # snr = np.sum(np.square(I_after))/np.sum(np.square(I_after-I_before))
-    # I_after_round = np.round(I_after).astype(np.uint8)
-    snr = np.sum(np.square(I_after))/np.sum(np.square(I_after-I_before))
+    I_after_round = np.round(I_after).astype(np.uint8)
+    snr = np.sum(np.square(I_after_round))/np.sum(np.square(I_after_round-I_before))
 
     return rms, snr
 
