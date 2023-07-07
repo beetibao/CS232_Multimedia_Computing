@@ -14,7 +14,12 @@ import pandas as pd
 def DCT(img,level,dir_path):
     st.header('📍 :blue[Discrete Cosine Transform]')
     st.subheader("Image Before:")
+    
     img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2BGR)
+    cv2.imwrite(dir_path + '/input_.jpg', img_before)
+    st.image(Image.open(dir_path + '/input_.jpg'))
+    st.write("Size before:")
+    st.write(os.path.getsize(dir_path + '/input_.jpg'))
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_BGR2YCR_CB)
     #img_before = cv2.cvtColor(np.array(img), cv2.COLOR_RGB2YCR_CB)
 
@@ -33,8 +38,7 @@ def DCT(img,level,dir_path):
 
     img_after, time_de = decompress_img_DCT(C_B,C_G,C_R,Q,T,T_prime,dir_path)
    
-    st.write("Size before:")
-    st.write(os.getsize(img))
+    
     # st.write("Size after:")
     # st.write(os.path.getsize(dir_path + '/output_DCT.jpg'))
     #comp_ratio = round(((img_size-img_rle_size)/img_size))*100
