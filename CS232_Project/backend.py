@@ -38,7 +38,7 @@ def DCT(img,level,dir_path):
 
     # st.write("Size after:")
     img_size_after = int(os.path.getsize(dir_path + '/output_DCT.jpg'))
-    comp_ratio = ((img_size-img_size_after)/img_size)*100
+    comp_ratio = round(((img_size-img_size_after)/img_size)*100)
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({"time_com_sec": time_comp, 
                         "time_de_sec": time_de, 
