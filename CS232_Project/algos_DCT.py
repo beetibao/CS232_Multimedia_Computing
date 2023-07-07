@@ -162,6 +162,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     H = I.shape[0]
     W = I.shape[1]
+    channels = I.shape[2]
 
     B = B - 128*np.ones([H,W])
     G = G - 128*np.ones([H,W])
@@ -198,8 +199,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     end_com = time.time()
     
-    height, width, channels = I.shape
-    img_size = height * width * channels
+    img_size = H * W * channels
     
     cv2.imwrite(dir_path +'/After_Quantiz'+str(level)+'.jpg',image_DCT)
     st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
