@@ -150,7 +150,8 @@ def covert_txt_to_img(dir_path,file):
         i = i + 2
 
     matrix_img = np.reshape(array,(h,w))
-    #st.write(matrix_img.shape)
+    st.write("Step")
+    st.write(matrix_img.shape)
     return matrix_img, img_rle_size
 
     
@@ -234,11 +235,11 @@ def compress_img_DCT(img_before,level,dir_path):
 
 def decompress_img_DCT(dir_path,level):
     st.text("Decompress Process.........")
-    channel = ["/img_rle_C_B.txt","/img_rle_C_G.txt", "/img_rle_C_R.txt"]
     start_de = time.time()
-    matrix_img_B, img_rle_size_B = covert_txt_to_img(dir_path,channel[0])
-    matrix_img_G, img_rle_size_G = covert_txt_to_img(dir_path,channel[1])
-    matrix_img_R, img_rle_size_R = covert_txt_to_img(dir_path,channel[2])
+
+    matrix_img_B, img_rle_size_B = covert_txt_to_img(dir_path,"/img_rle_C_B.txt")
+    matrix_img_G, img_rle_size_G = covert_txt_to_img(dir_path,"/img_rle_C_G.txt")
+    matrix_img_R, img_rle_size_R = covert_txt_to_img(dir_path,"/img_rle_C_R.txt")
 
     img_rle_size = img_rle_size_B + img_rle_size_G + img_rle_size_R
     T = dct_coeff()
