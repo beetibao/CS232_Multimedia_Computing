@@ -18,7 +18,7 @@ def get_run_length_encoding(image):
     while i < image.shape[0]:
         if image[i] != 0:            
             stream.append((image[i],skip))
-            bitstream = bitstream + str(image[i])+ " " +str(skip)+ " "
+            bitstream = bitstream + str(image[i])+ " " + str(skip) + " "
             skip = 0
         else:
             skip = skip + 1
@@ -177,7 +177,7 @@ def compress_img_DCT(img_before,level,dir_path):
     D_G = dct(G,T,T_prime)
     D_B = dct(B,T,T_prime)
 
-    tmp = cv2.merge((D_R, D_G, D_B))
+    tmp = cv2.merge((C_B,C_G,C_R))
 
     st.text("Quantiz Process.........")
     C_R = quantiz(D_R,Q)
@@ -201,12 +201,12 @@ def compress_img_DCT(img_before,level,dir_path):
     
     img_size = H * W * channels
     
-    cv2.imwrite(dir_path +'/After_Quantiz'+str(level)+'.jpg',image_DCT)
+    cv2.imwrite(dir_path +'/After_Quantiz'+ str(level) +'.jpg', image_DCT)
     st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
 
     time_comp = end_com - start_com
 
-    return time_comp,img_size
+    return time_comp, img_size
 
 def decompress_img_DCT(dir_path,level):
     st.text("Decompress Process.........")
