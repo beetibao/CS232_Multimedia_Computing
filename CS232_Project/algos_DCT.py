@@ -150,7 +150,7 @@ def covert_txt_to_img(dir_path):
         i = i + 2
 
     matrix_img = np.reshape(array,(h,w))
-    
+    st.write(matrix_img.shape)
     return matrix_img, img_rle_size
 
     
@@ -200,7 +200,10 @@ def compress_img_DCT(img_before,level,dir_path):
     end_com = time.time()
     
     img_size = H * W * channels
-    
+    st.subheader("Image applied DCT")
+    cv2.imwrite(dir_path +'/After_DCT'+'.jpg', tmp)
+    st.image(Image.open(dir_path + '/After_DCT'+'.jpg'))
+    st.subheader("Image applied DCT-Quantiz")
     cv2.imwrite(dir_path +'/After_Quantiz'+ str(level) +'.jpg', image_DCT)
     st.image(Image.open(dir_path + '/After_Quantiz'+str(level)+'.jpg'))
 
