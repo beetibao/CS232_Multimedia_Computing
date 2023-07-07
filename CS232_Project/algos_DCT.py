@@ -206,7 +206,7 @@ def compress_img_DCT(img_before,level,dir_path):
     file = open(dir_path + "/img_rle_C_G.txt","w+")
     file.write(img_rle_C_G)
     file.close()
-    with open(dir_path + file, "/img_rle_C_G.txt") as myfile:
+    with open(dir_path + "/img_rle_C_G.txt") as myfile:
         image_txt = myfile.read()
 
     st.write(image_txt)
