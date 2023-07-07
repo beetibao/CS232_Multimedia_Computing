@@ -108,52 +108,6 @@ def decompress(C,Q,T,T_prime):
             N[8*i:8*i+8,8*j:8*j+8] = np.round(mask) + 128*np.ones([8,8])
 
     return N
-
-# def covert_txt_to_img(dir_path,file):
-#     with open(dir_path + file, 'r') as myfile:
-#         image_txt = myfile.read()
-    
-#     img_rle_size = len(image_txt)
-#     details = image_txt.split()
-
-#     # just python-crap to get integer from tokens : h and w are height and width of image (first two items)
-#     h = int(''.join(filter(str.isdigit, details[0])))
-#     w = int(''.join(filter(str.isdigit, details[1])))
-
-#     # declare an array of zeros (It helps to reconstruct bigger array on which IDCT and all has to be applied)
-#     array = np.zeros(h*w).astype(int)
-#     # some loop var initialisation
-#     k = 0
-#     i = 2
-#     x = 0
-#     j = 0
-
-#     # This loop gives us reconstructed array of size of image
-#     while k < array.shape[0]:
-#     # Oh! image has ended
-#         if(details[i] == ';'):
-#             break
-#     # This is imp! note that to get negative numbers in array check for - sign in string
-#         if "-" not in details[i]:
-#             array[k] = int(''.join(filter(str.isdigit, details[i])))        
-#         else:
-#             array[k] = - 1 * int(''.join(filter(str.isdigit, details[i])))        
-
-#         if(i+3 < len(details)):
-#             j = int(''.join(filter(str.isdigit, details[i+3])))
-
-#         if j == 0:
-#             k = k + 1
-#         else:                
-#             k = k + j + 1        
-
-#         i = i + 2
-
-#     matrix_img = np.reshape(array,(h,w))
-#     st.write("Step")
-#     st.write(matrix_img.shape)
-#     return matrix_img, img_rle_size
-
     
 def compress_img_DCT(img_before,level,dir_path):
     start_com = time.time()
@@ -162,7 +116,6 @@ def compress_img_DCT(img_before,level,dir_path):
 
     H = I.shape[0]
     W = I.shape[1]
-    channels = I.shape[2]
 
     B = B - 128*np.ones([H,W])
     G = G - 128*np.ones([H,W])
@@ -189,24 +142,9 @@ def compress_img_DCT(img_before,level,dir_path):
     C_B[C_B==0] = 0
 
     image_DCT = cv2.merge((C_B,C_G,C_R))
-    # st.write('image_DCT shape')
-    # st.write(image_DCT.shape)
-
-    # flatten_C_R = C_R.flatten()
-    # flatten_C_G = C_G.flatten()
-    # flatten_C_B = C_B.flatten()
-    
-    # rle_C_R = get_run_length_encoding(flatten_C_R)
-    # rle_C_G= get_run_length_encoding(flatten_C_G)
-    # rle_C_B= get_run_length_encoding(flatten_C_B)
-  
-    # img_rle_C_G = str(C_G.shape[0]) + " " + str(C_G.shape[1]) + " " + rle_C_G + ";"
-    # img_rle_C_R = str(C_R.shape[0]) + " " + str(C_R.shape[1]) + " " + rle_C_R + ";"
-    # img_rle_C_B = str(C_B.shape[0]) + " " + str(C_B.shape[1]) + " " + rle_C_B + ";"
-
+   
     end_com = time.time()
     
-    img_size = H * W * channels
     st.subheader("Image applied DCT")
     cv2.imwrite(dir_path +'/After_DCT'+'.jpg', tmp)
     st.image(Image.open(dir_path + '/After_DCT'+'.jpg'))
@@ -218,7 +156,7 @@ def compress_img_DCT(img_before,level,dir_path):
 
     return C_R,C_B,C_G,T,T_prime,Q,time_comp
 
-def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path):
+def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q):
     st.text("Decompress Process.........")
     start_de = time.time()
 
@@ -231,10 +169,10 @@ def decompress_img_DCT(C_R,C_B,C_G,T,T_prime,Q,dir_path):
     #N_B = np.astype(np.uint8)
 
     image_de = cv2.merge((N_B, N_G, N_R))
-    #image_de = cv2.merge((N_R, N_G, N_B))
+   
     end_de = time.time()
     time_de = end_de - start_de
-    #cv2.imwrite(fileout,N_I)
+    
     st.success('Done!', icon="✅")
     return image_de, time_de
     
