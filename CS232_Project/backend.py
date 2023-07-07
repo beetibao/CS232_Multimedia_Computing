@@ -59,10 +59,10 @@ def SVD():
     st.write(f"**Image shape :** {img_before.shape}")
 
     order = st.slider("Compression Order", 1, 640, 1)
-    compressed_img_shape, compression_time = compress_and_display_image(img, order)
+    compressed_img ,compressed_img_shape, compression_time = compress_and_display_image(img, order)
     st.subheader("Image after: ")
     
-    cv2.imwrite(dir_path + '/output_SVD.jpg' + compressed_img_shape)
+    cv2.imwrite(dir_path + '/output_SVD.jpg' + compressed_img)
     st.image(Image.open(dir_path + '/output_SVD.jpg'))
     
              
