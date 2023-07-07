@@ -1,14 +1,12 @@
 import streamlit as st
 from PIL import Image
-from algos import compress_img_DCT
-from algos import decompress_img_DCT
-from algos import evaluate_DCT
-import algos
+from algos_DCT import compress_img_DCT
+from algos_DCT import decompress_img_DCT
+from algos_DCT import evaluate_DCT
 import cv2
 import os
 import numpy as np
 import pandas as pd 
-import algos_SVD
 from algos_SVD import compress_and_display_image
 from algos_SVD import calculate_metrics
 from algos_SVD import compress_and_plot
