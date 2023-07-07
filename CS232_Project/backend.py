@@ -24,13 +24,7 @@ def DCT(img,level,dir_path):
     #st.image(img)
     st.write(f"**Image shape :** {img_before.shape}")
         
-    metric_dct = dict(  level = level, 
-                        time_com_sec = [], 
-                        time_de_sec = [], 
-                        total_time_sec = [], 
-                        compression_ratio = [],
-                        RMS = [], 
-                        SNR = [] )
+    metric_dct = {}
        
     C_B,C_G,C_R,Q,T,T_prime,time_comp = compress_img_DCT(img_before,level,dir_path)
 
