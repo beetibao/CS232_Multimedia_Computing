@@ -1,7 +1,7 @@
 import streamlit as st
 from PIL import Image
 from backend import DCT
-#from backend import SVD
+from backend import SVD
 import cv2
 import numpy as np
 import pandas as pd 
@@ -61,6 +61,6 @@ if upload_img and submitted:
     img = Image.open(upload_img)
     if dct:
         DCT(img,level,dir_path)
-    #if svd:
-        #SVD()
-        #print('A')
+    if svd:
+        SVD(img,level)
+        
