@@ -109,8 +109,8 @@ def decompress(C,Q,T,T_prime):
 
     return N
 
-def covert_txt_to_img(dir_path):
-    with open(dir_path + '/image_DCT.txt', 'r') as myfile:
+def covert_txt_to_img(dir_path,file):
+    with open(dir_path + file, 'r') as myfile:
         image_txt = myfile.read()
     
     img_rle_size = len(image_txt)
@@ -150,7 +150,7 @@ def covert_txt_to_img(dir_path):
         i = i + 2
 
     matrix_img = np.reshape(array,(h,w))
-    st.write(matrix_img.shape)
+    #st.write(matrix_img.shape)
     return matrix_img, img_rle_size
 
     
@@ -190,12 +190,29 @@ def compress_img_DCT(img_before,level,dir_path):
     image_DCT = cv2.merge((C_B,C_G,C_R))
     st.write('image_DCT shape')
     st.write(image_DCT.shape)
-    flatten_image_DCT = image_DCT.flatten()
-    img_rle = get_run_length_encoding(flatten_image_DCT)
-    img_rle = str(image_DCT.shape[0]) + " " + str(image_DCT.shape[1]) + " " + img_rle + ";"
 
-    file = open(dir_path + "/image_DCT.txt","w+")
-    file.write(img_rle)
+    flatten_C_R = C_R.flatten()
+    flatten_C_G = C_G.flatten()
+    flatten_C_B = C_B.flatten()
+    
+    rle_C_R = get_run_length_encoding(flatten_C_R)
+    rle_C_G= get_run_length_encoding(flatten_C_G)
+    rle_C_B= get_run_length_encoding(flatten_C_B)
+  
+    img_rle_C_G = str(C_G.shape[0]) + " " + str(C_G.shape[1]) + " " + rle_C_G + ";"
+    img_rle_C_R = str(C_R.shape[0]) + " " + str(C_R.shape[1]) + " " + rle_C_R + ";"
+    img_rle_C_B = str(C_B.shape[0]) + " " + str(C_B.shape[1]) + " " + rle_C_B + ";"
+
+    file = open(dir_path + "/img_rle_C_G.txt","w+")
+    file.write(img_rle_C_G)
+    file.close()
+
+    file = open(dir_path + "/img_rle_C_R.txt","w+")
+    file.write(img_rle_C_R)
+    file.close()
+
+    file = open(dir_path + "/img_rle_C_B.txt","w+")
+    file.write(img_rle_C_B)
     file.close()
 
     end_com = time.time()
@@ -214,14 +231,18 @@ def compress_img_DCT(img_before,level,dir_path):
 
 def decompress_img_DCT(dir_path,level):
     st.text("Decompress Process.........")
+    channel = ["/img_rle_C_B.txt","/img_rle_C_G.txt", "/img_rle_C_R.txt"]
     start_de = time.time()
-    matrix_img, img_rle_size = covert_txt_to_img(dir_path)
+    matrix_img_B, img_rle_size_B = covert_txt_to_img(dir_path,channel[0])
+    matrix_img_G, img_rle_size_G = covert_txt_to_img(dir_path,channel[1])
+    matrix_img_R, img_rle_size_R = covert_txt_to_img(dir_path,channel[2])
 
+    img_rle_size = img_rle_size_B + img_rle_size_G + img_rle_size_R
     T = dct_coeff()
     T_prime = inv(T)
     Q = quantization_level(level)
 
-    C_B, C_G, C_R = cv2.split(matrix_img)
+    C_B, C_G, C_R = matrix_img_B, matrix_img_G, matrix_img_R
 
     N_R = decompress(C_R,Q,T,T_prime)
     N_G = decompress(C_G,Q,T,T_prime)
