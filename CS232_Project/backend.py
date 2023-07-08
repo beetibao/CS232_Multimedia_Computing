@@ -43,24 +43,32 @@ def DCT(img,level,dir_path):
     st.subheader("Result_DCT:")
     st.table(data=result_DCT)
 
-def SVD(img, level):
+def SVD(img, k):
     st.header('📍 :blue[Singular Value Decomposition]')
-    st.subheader("Image Before:")
-    st.image(img)
+    
     #st.markdown("Please upload your image and set the compression parameters.")
     # Set the compression parameter and the SVD algorithm
-    k = level
-        
-    compressed_image, compression_time, size_reduction = compress_svd(img, k)
+    metric_svd = {}   
+    compressed_image, compression_time, size_reduction, compressed_image.shape, img.shape = compress_svd(img, k)
+
+    st.subheader("Image Before:")
+    st.image(img)
+    st.write(f"**Image shape :** {img.shape}")
+
     # Display compressed image
     st.subheader("Image After:")
     st.image(compressed_image)
-    st.write(f"Compression Time: {round(compression_time, 3)} seconds")
-    st.write(f"Size Reduction: {size_reduction}%")
-            
+    st.write(f"**Compressed image shape :** {compressed_image.shape}")
+
     rmse, snr = svd_evaluation(img, compressed_image)
-    st.write(f"RMSE at k = {k} is {round(rmse,3)}")
-    st.write(f"SNR at k = {k} is {round(snr,3)}")
+    metric_svd.update({"time_compress(s)": compression_time, 
+                        "compression_ratio(%)": size_reduction,
+                        "RMSE": np.round(rmse,4),
+                        "SNR": np.round(snr,4)})
+    result_SVD = pd.DataFrame([metric_svd],index=None)
+    st.subheader("Result:")
+    st.table(data=result_SVD)
+            
             
 
     
