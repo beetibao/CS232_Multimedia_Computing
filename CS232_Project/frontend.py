@@ -50,9 +50,13 @@ with st.form("first_form"):
     with col6:
         svd = st.checkbox("**Singular Value Decomposition**", key="svd")
         
-    st.subheader(":blue[3. Choose level]")
-    level = st.number_input('**Choose a number of level compression**', min_value = 0, 
+    st.subheader(":blue[3. Choose level for DCT]")
+    level = st.number_input('**Choose a number of level for DCT compression**', min_value = 0, 
                             max_value = 100, value = 50, step = 5, key = 'level', format = '%d')
+    
+    st.subheader(":blue[4. Choose k for SVD]")
+    k = st.number_input('**Choose k for SVD compression**', min_value = 0, 
+                            max_value = 500, value = 50, step = 1, key = 'k', format = '%d')
     
     submitted = st.form_submit_button("Run")
 
@@ -62,5 +66,5 @@ if upload_img and submitted:
     if dct:
         DCT(img,level,dir_path)
     if svd:
-        SVD(img,level)
+        SVD(img,k)
         
