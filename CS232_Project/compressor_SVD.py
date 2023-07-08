@@ -10,8 +10,9 @@ from tqdm import tqdm
 def img2double(image):
 
     image = np.array(image)
+    image = image.astype(float)/ 255.0
 
-    return image.astype(float)/ 255.0
+    return image
 
 def svd(matrix, full_matrices=True, compute_uv=True):
     # Compute the eigenvalues and eigenvectors of A^T * A
@@ -60,16 +61,15 @@ def svd_compressor(image, order):
     return compressed
 
 def compress_svd(image, order):
-    """Compress the image using 2-phase SVD with rank r"""
-    # Use nbytes to get the size of the numpy array in bytes
-    original_size = 640*640*3
-    
     # Convert image to float
     image = img2double(image)
+    # Use nbytes to get the size of the numpy array in bytes
+    original_size = image.shape[0]*image.shape[1]*image.shape[2]
 
     # Initialize start time
     start_time = time.time()
-
+    
+    #Separation of the image channels
     red_image = np.array(image)[:, :, 0]
     green_image = np.array(image)[:, :, 1]
     blue_image = np.array(image)[:, :, 2]
@@ -90,18 +90,18 @@ def compress_svd(image, order):
     # Calculate compression time
     end_time = time.time()
     compression_time = end_time - start_time
-
+    compressed_image
     # Compute the size reduction of compressed image
-    compressed_size = order * (1 + 640 + 640) * 3
+    compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
     size_reduction = compressed_size * 1.0 / original_size
     
-    return compressed_image, compression_time, size_reduction
+    return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape
 
 def svd_evaluation(image, compressed_image):
     mse = np.mean((image - compressed_image)**2)
     signal_power = np.max(image) ** 2
-    
+
     rmse = np.sqrt(mse)
     snr = 10 * math.log10(signal_power / mse)
-    
+
     return rmse, snr 
