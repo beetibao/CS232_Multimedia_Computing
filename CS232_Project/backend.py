@@ -9,8 +9,6 @@ import os
 import numpy as np
 import pandas as pd 
 
-
-
 def DCT(img,level,dir_path):
     st.header('📍 :blue[Discrete Cosine Transform]')
     st.subheader("Image Before:")
@@ -45,36 +43,32 @@ def DCT(img,level,dir_path):
     st.subheader("Result:")
     st.table(data=result_DCT)
 
-def SVD(image, level):
-    
-    st.header('📍 :red[Singular Value Decomposition]')
-    st.markdown("Please upload your image and set the compression parameters.")
-
+def SVD(img, level):
+    st.header('📍 :blue[Singular Value Decomposition]')
+    #st.markdown("Please upload your image and set the compression parameters.")
     # Set the compression parameter and the SVD algorithm
     k = level
         
     # Implement your image compression functions here
-    uploaded_file = st.file_uploader("Choose an image...", type=['png', 'jpg', 'jpeg'])
+    #uploaded_file = st.file_uploader("Choose an image...", type=['png', 'jpg', 'jpeg'])
 
-    if uploaded_file is not None:
+    #if uploaded_file is not None:
     # Continue with your image compression logic here...
-            image = Image.open(uploaded_file)
+            #image = Image.open(uploaded_file)
 
-            st.image(image, caption="Original Image", use_column_width=True)
+            #st.image(image, caption="Original Image", use_column_width=True)
             
 
             # Compress image with the specified type of SVD algorithm
-            compressed_image, compression_time, size_reduction = compress_svd(image, k)
-            
+    compressed_image, compression_time, size_reduction = compress_svd(img, k)
             # Display compressed image
-            st.image(compressed_image, caption="Image after", use_column_width=True)
-            st.write(f"Compression Time: {round(compression_time, 3)} seconds")
-            st.write(f"Size Reduction: {size_reduction}%")
+    st.image(compressed_image, caption="Image after", use_column_width=True)
+    st.write(f"Compression Time: {round(compression_time, 3)} seconds")
+    st.write(f"Size Reduction: {size_reduction}%")
             
-            
-            rmse, snr = svd_evaluation(image, compressed_image)
-            st.write(f"RMSE at k = {k} is {round(rmse,3)}")
-            st.write(f"SNR at k = {k} is {round(snr,3)}")
+    rmse, snr = svd_evaluation(img, compressed_image)
+    st.write(f"RMSE at k = {k} is {round(rmse,3)}")
+    st.write(f"SNR at k = {k} is {round(snr,3)}")
             
 
     
