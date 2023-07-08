@@ -8,15 +8,7 @@ import math
 from tqdm import tqdm
 
 def img2double(image):
-    """
-    Converts image pixel intensities to double precision floating point numbers.
 
-    Args:
-    img (numpy.ndarray): Input image as an array.
-
-    Returns:
-    numpy.ndarray: Image with pixel intensities as double precision floating point numbers.
-    """
     image = np.array(image)
 
     return image.astype(float)/ 255.0
