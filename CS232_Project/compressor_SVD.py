@@ -100,8 +100,8 @@ def compress_svd(image, order):
 def svd_evaluation(image, compressed_image):
     mse = np.mean((image - compressed_image)**2)
     signal_power = np.max(image) ** 2
-
+    
     rmse = np.sqrt(mse)
     snr = 10 * math.log10(signal_power / mse)
-
+    
     return rmse, snr 
