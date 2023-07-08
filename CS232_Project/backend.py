@@ -49,17 +49,6 @@ def SVD(img, level):
     # Set the compression parameter and the SVD algorithm
     k = level
         
-    # Implement your image compression functions here
-    #uploaded_file = st.file_uploader("Choose an image...", type=['png', 'jpg', 'jpeg'])
-
-    #if uploaded_file is not None:
-    # Continue with your image compression logic here...
-            #image = Image.open(uploaded_file)
-
-            #st.image(image, caption="Original Image", use_column_width=True)
-            
-
-            # Compress image with the specified type of SVD algorithm
     compressed_image, compression_time, size_reduction = compress_svd(img, k)
             # Display compressed image
     st.image(compressed_image, caption="Image after", use_column_width=True)
