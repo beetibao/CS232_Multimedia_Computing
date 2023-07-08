@@ -50,7 +50,7 @@ def SVD(img, level):
     k = level
         
     compressed_image, compression_time, size_reduction = compress_svd(img, k)
-            # Display compressed image
+    # Display compressed image
     st.image(compressed_image, caption="Image after", use_column_width=True)
     st.write(f"Compression Time: {round(compression_time, 3)} seconds")
     st.write(f"Size Reduction: {size_reduction}%")
