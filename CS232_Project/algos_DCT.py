@@ -169,13 +169,14 @@ def evaluate_DCT(I_before,I_after):
     m,n,k = I_after.shape
     #print("----After")
     #print(I_after)
-    rmse = np.sqrt(np.sum(np.square(I_after-I_before)))/(m*n)
+    #rmse = np.sqrt(np.sum(np.square(I_after-I_before)))/(m*n)
 
     # snr = np.sum(np.square(I_after))/np.sum(np.square(I_after-I_before))
     #I_after_round = np.round(I_after).astype(np.uint8)
     #snr = np.sum(np.square(I_after_round))/np.sum(np.square(I_after_round-I_before))
 
     mse = np.mean((I_after-I_before)**2)
+    rmse = np.sqrt(mse)
     signal_power = np.max(I_before) ** 2
     
     psnr = 10 * math.log10(signal_power / mse)
