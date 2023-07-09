@@ -135,6 +135,6 @@ def svd_evaluation(image, compressed_image):
     signal_power = np.max(image) ** 2
 
     rmse = np.sqrt(mse)
-    snr = 10 * math.log10(signal_power / mse)
+    psnr = 10 * math.log10(signal_power / mse)
 
-    return rmse, snr 
+    return rmse, psnr 

@@ -34,8 +34,8 @@ def DCT(img,level,dir_path):
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({ "time(s)": np.round(time_de + time_comp,3),
                         "compression_ratio(%)": comp_ratio,
-                        "RMS": np.round(rms,4),
-                        "SNR": np.round(snr,4)})
+                        "RMS": np.round(rms,2),
+                        "PSNR": np.round(snr,2)})
     
     result_DCT = pd.DataFrame([metric_dct],index=None)
     st.subheader("Result_DCT:")
@@ -62,8 +62,8 @@ def SVD(img, k):
     rmse, snr = svd_evaluation(img, compressed_image)
     metric_svd.update({"time(s)": np.round(compression_time + decompression_time, 3),
                         "compression_ratio(%)": round(size_reduction),
-                        "RMS": np.round(rmse,4),
-                        "SNR": np.round(snr,4)})
+                        "RMS": np.round(rmse,2),
+                        "PSNR": np.round(snr,2)})
     result_SVD = pd.DataFrame([metric_svd],index=None)
     st.subheader("Result:")
     st.table(data=result_SVD)
