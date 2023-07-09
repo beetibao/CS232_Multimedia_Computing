@@ -133,8 +133,6 @@ def decompress_svd(compressed_image, order):
 
 def svd_evaluation(image, compressed_image):
 
-    
-    
     mse = np.mean((image - compressed_image)**2)
     signal_power = np.max(image) ** 2
 
