@@ -8,11 +8,21 @@ import math
 from tqdm import tqdm
 
 def img2double(image):
+    """
+    Converts image pixel intensities to double precision floating point numbers.
 
+    Args:
+    img (numpy.ndarray): Input image as an array.
+
+    Returns:
+    numpy.ndarray: Image with pixel intensities as double precision floating point numbers.
+    """
     image = np.array(image)
-    image = image.astype(float)
-
+    image = image.astype(float)/255.0
     return image
+
+
+    
 
 def svd(matrix, full_matrices=True, compute_uv=True):
     # Compute the eigenvalues and eigenvectors of A^T * A
@@ -47,7 +57,7 @@ def svd_compressor(image, order):
 
     # Create an array filled with zeros having the shape of the image
     compressed = np.zeros(image.shape)
-    
+
     # Get the U, S and V terms (S = SIGMA)
     U, S, V = svd(image)
 
@@ -65,11 +75,35 @@ def compress_svd(image, order):
     image = img2double(image)
     # Use nbytes to get the size of the numpy array in bytes
     original_size = image.shape[0]*image.shape[1]*image.shape[2]
-
     # Initialize start time
     start_time = time.time()
-    
-    #Separation of the image channels
+
+    # If image is RGB
+    """if len(img.shape) == 3:
+        red_channel, green_channel, blue_channel =  img[:, :, 0], img[:, :, 1], img[:, :, 2]
+
+        # XR_r = img_func.truncate_svd(red_channel, 66, r, r, svd_version=algo)[0]
+        # XG_r = img_func.truncate_svd(green_channel, 66, r, r, svd_version=algo)[0]
+        # XB_r = img_func.truncate_svd(blue_channel, 66, r, r, svd_version=algo)[0]
+        # X_r = np.dstack((XR_r, XG_r, XB_r))
+        U_B, S_B, VT_B = img_func.svd(blue_channel)
+        U_G, S_G, VT_G = img_func.svd(green_channel)
+        U_R, S_R, VT_R = img_func.svd(red_channel)
+
+        # Output compressed image
+        XR_r = U_R[:, :r] @ S_R[:r, :r] @ VT_R[:r, :]
+        XG_r = U_G[:, :r] @ S_G[:r, :r] @ VT_G[:r, :]
+        XB_r = U_B[:, :r] @ S_B[:r, :r] @ VT_B[:r, :]
+        compressed_image = np.dstack((XR_r, XG_r, XB_r))
+
+        # Truncate U, S, and VT using the rank-k approximation
+        U_k = U[:, :r]
+        S_k = S[:r, :r]
+        VT_k = VT[:r, :]
+
+        # Reconstruct the compressed image
+        compressed_image = U_k @ S_k @ VT_k"""
+    # Separation of the image channels
     red_image = np.array(image)[:, :, 0]
     green_image = np.array(image)[:, :, 1]
     blue_image = np.array(image)[:, :, 2]
@@ -84,18 +118,20 @@ def compress_svd(image, order):
     compressed_image[:, :, 0] = red_comp
     compressed_image[:, :, 1] = green_comp
     compressed_image[:, :, 2] = blue_comp
-    compressed_image = np.around(compressed_image).astype(int)
+    compressed_image_1 = np.clip(compressed_image, 0, 1)
+    compressed_image_2 = np.around(compressed_image*255.0).astype(int)
+    #compressed_image_2 = compressed_image_2.astype(int)
 
 
     # Calculate compression time
     end_time = time.time()
     compression_time = end_time - start_time
-    compressed_image
+
     # Compute the size reduction of compressed image
     compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
     size_reduction = (compressed_size * 1.0 / original_size)*100
-    
-    return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape
+    #compressed_image_shape = compressed_image.shape
+    return compressed_image_1,  compressed_image_2, compression_time, size_reduction, compressed_image_1.shape, image.shape
 
 def decompress_svd(compressed_image, order):
     # Convert compressed image to float
@@ -122,7 +158,8 @@ def decompress_svd(compressed_image, order):
     decompressed_image[:, :, 0] = red_image
     decompressed_image[:, :, 1] = green_image
     decompressed_image[:, :, 2] = blue_image
-    decompressed_image = np.around(decompressed_image).astype(int)
+    decompressed_image_1 = np.clip(decompressed_image, 0, 1)
+    decompressed_image_2 = np.around(decompressed_image).astype(int)
 
     # Calculate decompression time
     end_time = time.time()
@@ -130,11 +167,13 @@ def decompress_svd(compressed_image, order):
 
     return decompression_time
 
-def svd_evaluation(image, compressed_image):
-    mse = np.mean((image - compressed_image)**2)
+def svd_evaluation(image, compressed_image_2):
+    
+    mse = np.mean((compressed_image_2 - image)**2)
     signal_power = np.max(image) ** 2
-
+    
     rmse = np.sqrt(mse)
     psnr = 10 * math.log10(signal_power / mse)
+  
+    return rmse, psnr
 
-    return rmse, psnr 
