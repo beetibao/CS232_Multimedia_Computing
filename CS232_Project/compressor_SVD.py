@@ -65,7 +65,7 @@ def compress_svd(image, order):
     # Convert image to float
     image = img2double(image)   ##Chuyển dòng code này lên đầu 
     # Use nbytes to get the size of the numpy array in bytes
-    #h,w,channel = image.shape
+    h,w,channel = image.shape
     st.write('Shape:')
     st.write(image.shape)
     original_size = h*w*channel
