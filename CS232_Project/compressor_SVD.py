@@ -135,11 +135,13 @@ def svd_evaluation(image, compressed_image):
 
     image = img2double(image)
     compressed_image = img2double(compressed_image)
-
+    
     mse = np.mean((compressed_image - image)**2)
-    signal_power = np.max(image) ** 2
+    signal_power = (image) ** 2
     
     rmse = np.sqrt(mse)
-    snr = 10 * math.log10(signal_power / mse)
+    snr = (signal_power / (image - compressed_image)**2)
+
+    return rmse, snr
 
     return rmse, snr 
