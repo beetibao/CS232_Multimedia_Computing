@@ -18,7 +18,7 @@ def img2double(image):
     numpy.ndarray: Image with pixel intensities as double precision floating point numbers.
     """
     image = np.array(image)
-    image = image.astype(float)/255.0
+    image = image.astype(np.float)/255.0
     return image
 
 
@@ -56,7 +56,7 @@ def svd_compressor(image, order):
     """Returns the compressed image channel at the specified order"""
 
     # Create an array filled with zeros having the shape of the image
-    compressed = np.zeros(image.shape)
+    compressed = np.zeros(image.shape, dtype=np.complex128)
 
     # Get the U, S and V terms (S = SIGMA)
     U, S, V = svd(image)
@@ -68,7 +68,7 @@ def svd_compressor(image, order):
         Si = S[i]
         compressed += (Ui * Si * Vi)
 
-    return compressed
+    return compressed.real.astype(float)
 
 def compress_svd(image, order):
     # Convert image to float
@@ -78,31 +78,6 @@ def compress_svd(image, order):
     # Initialize start time
     start_time = time.time()
 
-    # If image is RGB
-    """if len(img.shape) == 3:
-        red_channel, green_channel, blue_channel =  img[:, :, 0], img[:, :, 1], img[:, :, 2]
-
-        # XR_r = img_func.truncate_svd(red_channel, 66, r, r, svd_version=algo)[0]
-        # XG_r = img_func.truncate_svd(green_channel, 66, r, r, svd_version=algo)[0]
-        # XB_r = img_func.truncate_svd(blue_channel, 66, r, r, svd_version=algo)[0]
-        # X_r = np.dstack((XR_r, XG_r, XB_r))
-        U_B, S_B, VT_B = img_func.svd(blue_channel)
-        U_G, S_G, VT_G = img_func.svd(green_channel)
-        U_R, S_R, VT_R = img_func.svd(red_channel)
-
-        # Output compressed image
-        XR_r = U_R[:, :r] @ S_R[:r, :r] @ VT_R[:r, :]
-        XG_r = U_G[:, :r] @ S_G[:r, :r] @ VT_G[:r, :]
-        XB_r = U_B[:, :r] @ S_B[:r, :r] @ VT_B[:r, :]
-        compressed_image = np.dstack((XR_r, XG_r, XB_r))
-
-        # Truncate U, S, and VT using the rank-k approximation
-        U_k = U[:, :r]
-        S_k = S[:r, :r]
-        VT_k = VT[:r, :]
-
-        # Reconstruct the compressed image
-        compressed_image = U_k @ S_k @ VT_k"""
     # Separation of the image channels
     red_image = np.array(image)[:, :, 0]
     green_image = np.array(image)[:, :, 1]
@@ -176,4 +151,3 @@ def svd_evaluation(image, compressed_image_2):
     psnr = 10 * math.log10(signal_power / mse)
   
     return rmse, psnr
-
