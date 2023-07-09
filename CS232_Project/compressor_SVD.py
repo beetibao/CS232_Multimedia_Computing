@@ -97,7 +97,7 @@ def compress_svd(image, order):
     
     return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape ## Thêm compressed_image.shape, image.shape
 
-### THÊM HÀM decompress_svd(_)
+### THÊM HÀM decompress_svd(_) sau hàm compress_svd
 def decompress_svd(compressed_image, order):
     # Convert compressed image to float
     compressed_image = img2double(compressed_image)
