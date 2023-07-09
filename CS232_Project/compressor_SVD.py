@@ -7,6 +7,7 @@ from matplotlib import pyplot as plt
 import math
 from tqdm import tqdm
 import streamlit as st
+import cv2
 
 def img2double(image):
 
@@ -63,13 +64,14 @@ def svd_compressor(image, order):
 
 def compress_svd(image, order):
     # Convert image to float
+    image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
     st.write('Shape_before:')
     st.write(image.shape)
-    image = img2double(image)   
-    #h,w,channel = image.shape
-    st.write('Shape:')
-    st.write(image.shape)
-    original_size = h*w
+    #image = img2double(image)   
+    h,w,channel = image.shape
+    #st.write('Shape:')
+    #st.write(image.shape)
+    original_size = h*w*channel
     
     # Initialize start time
     start_time = time.time()
