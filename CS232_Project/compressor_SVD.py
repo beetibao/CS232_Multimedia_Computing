@@ -97,6 +97,39 @@ def compress_svd(image, order):
     
     return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape
 
+def decompress_svd(compressed_image, order):
+    # Convert compressed image to float
+    compressed_image = img2double(compressed_image)
+
+    # Use nbytes to get the size of the numpy array in bytes
+    original_size = compressed_image.shape[0] * compressed_image.shape[1] * compressed_image.shape[2]
+
+    # Initialize start time
+    start_time = time.time()
+
+    # Separation of the compressed image channels
+    red_comp = np.array(compressed_image)[:, :, 0]
+    green_comp = np.array(compressed_image)[:, :, 1]
+    blue_comp = np.array(compressed_image)[:, :, 2]
+
+    # Decompress each channel
+    red_image = svd_compressor(red_comp, order)
+    green_image = svd_compressor(green_comp, order)
+    blue_image = svd_compressor(blue_comp, order)
+
+    # Recombine the channels
+    decompressed_image = np.zeros((np.array(compressed_image).shape[0], np.array(compressed_image).shape[1], 3))
+    decompressed_image[:, :, 0] = red_image
+    decompressed_image[:, :, 1] = green_image
+    decompressed_image[:, :, 2] = blue_image
+    decompressed_image = np.clip(decompressed_image, 0, 1)
+
+    # Calculate decompression time
+    end_time = time.time()
+    decompression_time = end_time - start_time
+
+    return decompression_time
+
 def svd_evaluation(image, compressed_image):
     mse = np.mean((image - compressed_image)**2)
     signal_power = np.max(image) ** 2
