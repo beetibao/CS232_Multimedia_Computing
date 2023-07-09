@@ -144,4 +144,3 @@ def svd_evaluation(image, compressed_image):
 
     return rmse, snr
 
-    return rmse, snr 
