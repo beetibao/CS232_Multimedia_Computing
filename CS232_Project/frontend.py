@@ -56,7 +56,7 @@ with st.form("first_form"):
     
     st.subheader(":blue[4. Choose k for SVD]")
     k = st.number_input('**Choose k for SVD compression**', min_value = 0, 
-                            max_value = 500, value = 50, step = 1, key = 'k', format = '%d')
+                            max_value = 1500, value = 50, step = 1, key = 'k', format = '%d')
     
     submitted = st.form_submit_button("Run")
 
