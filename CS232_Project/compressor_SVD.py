@@ -9,10 +9,10 @@ from tqdm import tqdm
 
 def img2double(image):
 
-    image = np.array(image)
-    image = image.astype(float)/ 255.0
+    image = np.array(image)          
+    image = image.astype(float)/ 255.0   ## Thêm dòng code này:  image = image.astype(float)/ 255.0 
 
-    return image
+    return image     ## Chuyển dòng code này từ image.astype(float)/ 255.0 thành image
 
 def svd(matrix, full_matrices=True, compute_uv=True):
     # Compute the eigenvalues and eigenvectors of A^T * A
@@ -62,9 +62,9 @@ def svd_compressor(image, order):
 
 def compress_svd(image, order):
     # Convert image to float
-    image = img2double(image)
+    image = img2double(image)   ##Chuyển dòng code này lên đầu 
     # Use nbytes to get the size of the numpy array in bytes
-    original_size = image.shape[0]*image.shape[1]*image.shape[2]
+    original_size = image.shape[0]*image.shape[1]*image.shape[2]  ## Đổi dòng original_size = 640*640*3 thành original_size = image.shape[0]*image.shape[1]*image.shape[2]
 
     # Initialize start time
     start_time = time.time()
@@ -90,13 +90,14 @@ def compress_svd(image, order):
     # Calculate compression time
     end_time = time.time()
     compression_time = end_time - start_time
-    compressed_image
+    compressed_image  ## Thêm dòng compressed_image 
     # Compute the size reduction of compressed image
-    compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
-    size_reduction = ((compressed_size * 1.0 / original_size)/2)*100
+    compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]  ##Chuyển dòng compressed_size = order * (1 + 640 + 640) * 3 thành  compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
+    size_reduction = ((compressed_size * 1.0 / original_size)/2)*100 ##Chuyển dòng size_reduction = compressed_size * 1.0 / original_size thành size_reduction = (compressed_size * 1.0 / original_size)*100
     
-    return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape
+    return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape ## Thêm compressed_image.shape, image.shape
 
+### THÊM HÀM decompress_svd(_)
 def decompress_svd(compressed_image, order):
     # Convert compressed image to float
     compressed_image = img2double(compressed_image)
