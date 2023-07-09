@@ -132,9 +132,13 @@ def decompress_svd(compressed_image, order):
     return decompression_time
 
 def svd_evaluation(image, compressed_image):
-    mse = np.mean((image - compressed_image)**2)
-    signal_power = np.max(image) ** 2
 
+    image = img2double(image)
+    compressed_image = img2double(compressed_image)
+
+    mse = np.mean((compressed_image - image)**2)
+    signal_power = np.max(image) ** 2
+    
     rmse = np.sqrt(mse)
     snr = 10 * math.log10(signal_power / mse)
 
