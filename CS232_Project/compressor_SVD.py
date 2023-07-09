@@ -99,7 +99,7 @@ def compress_svd(image, order):
     compression_time = end_time - start_time
     compressed_image  ## Thêm dòng compressed_image 
     # Compute the size reduction of compressed image
-    compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]  ##Chuyển dòng compressed_size = order * (1 + 640 + 640) * 3 thành  compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
+    compressed_size = order * (1 + h + w) * channel  ##Chuyển dòng compressed_size = order * (1 + 640 + 640) * 3 thành  compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
     size_reduction = ((compressed_size * 1.0 / original_size)/2)*100 ##Chuyển dòng size_reduction = compressed_size * 1.0 / original_size thành size_reduction = (compressed_size * 1.0 / original_size)*100
     
     return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape ## Thêm compressed_image.shape, image.shape
