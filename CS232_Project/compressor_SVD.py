@@ -63,12 +63,11 @@ def svd_compressor(image, order):
 
 def compress_svd(image, order):
     # Convert image to float
-    image = img2double(image)   ##Chuyển dòng code này lên đầu 
-    # Use nbytes to get the size of the numpy array in bytes
-    h,w,channel = image.shape
+    image = img2double(image)   
+    #h,w,channel = image.shape
     st.write('Shape:')
     st.write(image.shape)
-    original_size = h*w*channel
+    #original_size = h*w*channel
     
     # Initialize start time
     start_time = time.time()
