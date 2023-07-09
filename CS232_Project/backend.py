@@ -48,6 +48,7 @@ def SVD(img, k):
     # Set the compression parameter and the SVD algorithm
     metric_svd = {}   
     compressed_image, compression_time, size_reduction, compressed_image.shape, img.shape = compress_svd(img, k)
+    decompression_time = decompress_svd(img, k)
 
     st.subheader("Image Before:")
     st.image(img)
@@ -59,14 +60,14 @@ def SVD(img, k):
     st.write(f"**Compressed image shape :** {compressed_image.shape}")
 
     rmse, snr = svd_evaluation(img, compressed_image)
-    size_reduction = round(size_reduction, 4)
-    metric_svd.update({"time_compress(s)": compression_time, 
+    metric_svd.update({"time(s)": np.round(compression_time + decompression_time, 3),
                         "compression_ratio(%)": size_reduction,
-                        "RMSE": np.round(rmse,4),
+                        "RMS": np.round(rmse,4),
                         "SNR": np.round(snr,4)})
     result_SVD = pd.DataFrame([metric_svd],index=None)
     st.subheader("Result:")
     st.table(data=result_SVD)
+            
             
             
 
