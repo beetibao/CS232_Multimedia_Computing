@@ -63,15 +63,15 @@ def svd_compressor(image, order):
     return compressed
 
 def compress_svd(image, order):
-    # Convert image to float
-    image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)
+    image = img2double(image)
+
     st.write('Shape_before:')
     st.write(image.shape)
     #image = img2double(image)   
-    h,w,channel = image.shape
+    #h,w,channel = image.shape
     #st.write('Shape:')
     #st.write(image.shape)
-    original_size = h*w*channel
+    #original_size = h*w
     
     # Initialize start time
     start_time = time.time()
@@ -99,7 +99,7 @@ def compress_svd(image, order):
     compression_time = end_time - start_time
     compressed_image  ## Thêm dòng compressed_image 
     # Compute the size reduction of compressed image
-    compressed_size = order * (1 + h + w) * channel  ##Chuyển dòng compressed_size = order * (1 + 640 + 640) * 3 thành  compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
+    compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]  ##Chuyển dòng compressed_size = order * (1 + 640 + 640) * 3 thành  compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
     size_reduction = ((compressed_size * 1.0 / original_size)/2)*100 ##Chuyển dòng size_reduction = compressed_size * 1.0 / original_size thành size_reduction = (compressed_size * 1.0 / original_size)*100
     
     return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape ## Thêm compressed_image.shape, image.shape
@@ -107,11 +107,10 @@ def compress_svd(image, order):
 ### THÊM HÀM decompress_svd(_)
 def decompress_svd(compressed_image, order):
     # Convert compressed image to float
-    compressed_image = cv2.cvtColor(np.array(compressed_image), cv2.COLOR_RGB2BGR)
-    h,w,channel = compressed_image.shape
+    compressed_image = img2double(compressed_image)
 
     # Use nbytes to get the size of the numpy array in bytes
-    original_size = h * w * channel
+    original_size = compressed_image.shape[0] * compressed_image.shape[1] * compressed_image.shape[2]
 
     # Initialize start time
     start_time = time.time()
