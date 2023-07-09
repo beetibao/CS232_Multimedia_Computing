@@ -61,7 +61,7 @@ def SVD(img, k):
 
     rmse, snr = svd_evaluation(img, compressed_image)
     metric_svd.update({"time(s)": np.round(compression_time + decompression_time, 3),
-                        "compression_ratio(%)": size_reduction,
+                        "compression_ratio(%)": round(size_reduction),
                         "RMS": np.round(rmse,4),
                         "SNR": np.round(snr,4)})
     result_SVD = pd.DataFrame([metric_svd],index=None)
