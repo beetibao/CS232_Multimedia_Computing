@@ -175,10 +175,9 @@ def evaluate_DCT(I_before,I_after):
     #I_after_round = np.round(I_after).astype(np.uint8)
     #snr = np.sum(np.square(I_after_round))/np.sum(np.square(I_after_round-I_before))
 
-    #mse = np.mean((I_after-I_before)**2)
+    mse = np.mean((I_after-I_before)**2)
     signal_power = np.max(I_before) ** 2
     
-    #rmse = np.sqrt(mse)
     psnr = 10 * math.log10(signal_power / mse)
     #snr = signal_power / mse
     return rmse, psnr
