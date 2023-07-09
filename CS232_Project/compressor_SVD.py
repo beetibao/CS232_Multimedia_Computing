@@ -10,9 +10,9 @@ from tqdm import tqdm
 def img2double(image):
 
     image = np.array(image)          
-    image = image.astype(float)/ 255.0   ## Thêm dòng code này:  image = image.astype(float)/ 255.0 
+    image = image.astype(float)/ 255.0 
 
-    return image     ## Chuyển dòng code này từ image.astype(float)/ 255.0 thành image.
+    return image     
 
 def svd(matrix, full_matrices=True, compute_uv=True):
     # Compute the eigenvalues and eigenvectors of A^T * A
@@ -64,8 +64,9 @@ def compress_svd(image, order):
     # Convert image to float
     image = img2double(image)   ##Chuyển dòng code này lên đầu 
     # Use nbytes to get the size of the numpy array in bytes
-    original_size = image.shape[0]*image.shape[1]*image.shape[2]  ## Đổi dòng original_size = 640*640*3 thành original_size = image.shape[0]*image.shape[1]*image.shape[2]
-
+    h,w,channel = image.shape
+    original_size = h*w*channel
+    
     # Initialize start time
     start_time = time.time()
     
@@ -133,11 +134,13 @@ def decompress_svd(compressed_image, order):
 
 def svd_evaluation(image, compressed_image):
 
-    mse = np.mean((image - compressed_image)**2)
-    signal_power = np.max(image) ** 2
+    image = img2double(image)
+    compressed_image = img2double(compressed_image)
 
+    mse = np.mean((compressed_image - image)**2)
+    signal_power = np.max(image) ** 2
+    
     rmse = np.sqrt(mse)
     snr = 10 * math.log10(signal_power / mse)
 
-    return rmse, snr
-
+    return rmse, snr 
