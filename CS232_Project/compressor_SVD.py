@@ -63,11 +63,8 @@ def svd_compressor(image, order):
     return compressed
 
 def compress_svd(image, order):
-    image.shape
     image = img2double(image)
 
-    st.write('Shape_before:')
-    st.write(image.shape)
     #image = img2double(image)   
     #h,w,channel = image.shape
     #st.write('Shape:')
