@@ -10,7 +10,7 @@ from tqdm import tqdm
 def img2double(image):
 
     image = np.array(image)
-    image = image.astype(float)/ 255.0
+    image = image.astype(float)
 
     return image
 
@@ -84,7 +84,7 @@ def compress_svd(image, order):
     compressed_image[:, :, 0] = red_comp
     compressed_image[:, :, 1] = green_comp
     compressed_image[:, :, 2] = blue_comp
-    compressed_image = np.clip(compressed_image, 0, 1)
+    compressed_image = np.around(compressed_image).astype(int)
 
 
     # Calculate compression time
@@ -122,7 +122,7 @@ def decompress_svd(compressed_image, order):
     decompressed_image[:, :, 0] = red_image
     decompressed_image[:, :, 1] = green_image
     decompressed_image[:, :, 2] = blue_image
-    decompressed_image = np.clip(decompressed_image, 0, 1)
+    decompressed_image = np.around(decompressed_image).astype(int)
 
     # Calculate decompression time
     end_time = time.time()
