@@ -6,15 +6,13 @@ from PIL import Image
 from matplotlib import pyplot as plt
 import math
 from tqdm import tqdm
-import streamlit as st
-import cv2
 
 def img2double(image):
 
-    image = np.array(image)          
-    image = image.astype(float)/ 255.0 
+    image = np.array(image)
+    image = image.astype(float)/ 255.0
 
-    return image     
+    return image
 
 def svd(matrix, full_matrices=True, compute_uv=True):
     # Compute the eigenvalues and eigenvectors of A^T * A
@@ -63,14 +61,11 @@ def svd_compressor(image, order):
     return compressed
 
 def compress_svd(image, order):
+    # Convert image to float
     image = img2double(image)
+    # Use nbytes to get the size of the numpy array in bytes
+    original_size = image.shape[0]*image.shape[1]*image.shape[2]
 
-    #image = img2double(image)   
-    #h,w,channel = image.shape
-    #st.write('Shape:')
-    #st.write(image.shape)
-    #original_size = h*w
-    
     # Initialize start time
     start_time = time.time()
     
@@ -95,14 +90,13 @@ def compress_svd(image, order):
     # Calculate compression time
     end_time = time.time()
     compression_time = end_time - start_time
-    compressed_image  ## Thêm dòng compressed_image 
+    compressed_image
     # Compute the size reduction of compressed image
-    compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]  ##Chuyển dòng compressed_size = order * (1 + 640 + 640) * 3 thành  compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
-    size_reduction = ((compressed_size * 1.0 / original_size)/2)*100 ##Chuyển dòng size_reduction = compressed_size * 1.0 / original_size thành size_reduction = (compressed_size * 1.0 / original_size)*100
+    compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
+    size_reduction = (compressed_size * 1.0 / original_size)*100
     
-    return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape ## Thêm compressed_image.shape, image.shape
+    return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape
 
-### THÊM HÀM decompress_svd(_)
 def decompress_svd(compressed_image, order):
     # Convert compressed image to float
     compressed_image = img2double(compressed_image)
@@ -137,13 +131,9 @@ def decompress_svd(compressed_image, order):
     return decompression_time
 
 def svd_evaluation(image, compressed_image):
-
-    image = img2double(image)
-    compressed_image = img2double(compressed_image)
-
-    mse = np.mean((compressed_image - image)**2)
+    mse = np.mean((image - compressed_image)**2)
     signal_power = np.max(image) ** 2
-    
+
     rmse = np.sqrt(mse)
     snr = 10 * math.log10(signal_power / mse)
 
