@@ -107,10 +107,11 @@ def compress_svd(image, order):
 ### THÊM HÀM decompress_svd(_)
 def decompress_svd(compressed_image, order):
     # Convert compressed image to float
-    compressed_image = img2double(compressed_image)
+    compressed_image = cv2.cvtColor(np.array(compressed_image), cv2.COLOR_RGB2BGR)
+    h,w,channel = compressed_image.shape
 
     # Use nbytes to get the size of the numpy array in bytes
-    original_size = compressed_image.shape[0] * compressed_image.shape[1] * compressed_image.shape[2]
+    original_size = h * w * channel
 
     # Initialize start time
     start_time = time.time()
