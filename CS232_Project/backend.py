@@ -3,7 +3,7 @@ from PIL import Image
 from algos_DCT import compress_img_DCT
 from algos_DCT import decompress_img_DCT
 from algos_DCT import evaluate_DCT
-from compressor_SVD import img2double, compress_svd, svd_evaluation
+from compressor_SVD import img2double, compress_svd, svd_evaluation, , decompress_svd
 import cv2
 import os
 import numpy as np
