@@ -93,7 +93,7 @@ def compress_svd(image, order):
     compressed_image
     # Compute the size reduction of compressed image
     compressed_size = order * (1 + image.shape[0] + image.shape[1]) * image.shape[2]
-    size_reduction = compressed_size * 1.0 / original_size
+    size_reduction = (compressed_size * 1.0 / original_size)*100
     
     return compressed_image, compression_time, size_reduction, compressed_image.shape, image.shape
 
