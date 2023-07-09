@@ -12,7 +12,7 @@ import cv2
 def img2double(image):
 
     image = np.array(image)          
-    image = image.astype(float)#/ 255.0 
+    image = image.astype(float)/ 255.0 
 
     return image     
 
@@ -63,6 +63,7 @@ def svd_compressor(image, order):
     return compressed
 
 def compress_svd(image, order):
+    image.shape
     image = img2double(image)
 
     st.write('Shape_before:')
