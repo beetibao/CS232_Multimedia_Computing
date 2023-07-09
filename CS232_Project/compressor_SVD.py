@@ -12,7 +12,7 @@ def img2double(image):
     image = np.array(image)          
     image = image.astype(float)/ 255.0   ## Thêm dòng code này:  image = image.astype(float)/ 255.0 
 
-    return image     ## Chuyển dòng code này từ image.astype(float)/ 255.0 thành image
+    return image     ## Chuyển dòng code này từ image.astype(float)/ 255.0 thành image.
 
 def svd(matrix, full_matrices=True, compute_uv=True):
     # Compute the eigenvalues and eigenvectors of A^T * A
