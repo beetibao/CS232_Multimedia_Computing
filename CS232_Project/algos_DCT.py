@@ -8,7 +8,7 @@ from numpy.linalg import inv
 from stqdm import stqdm
 import streamlit as st
 from PIL import Image
-
+import math
 
 def dct_coeff():
     T = np.zeros([8,8])
@@ -169,11 +169,17 @@ def evaluate_DCT(I_before,I_after):
     m,n,k = I_after.shape
     #print("----After")
     #print(I_after)
-    rms = np.sqrt(np.sum(np.square(I_after-I_before)))/(m*n)
+    #rms = np.sqrt(np.sum(np.square(I_after-I_before)))/(m*n)
 
     # snr = np.sum(np.square(I_after))/np.sum(np.square(I_after-I_before))
-    I_after_round = np.round(I_after).astype(np.uint8)
-    snr = np.sum(np.square(I_after_round))/np.sum(np.square(I_after_round-I_before))
+    #I_after_round = np.round(I_after).astype(np.uint8)
+    #snr = np.sum(np.square(I_after_round))/np.sum(np.square(I_after_round-I_before))
 
-    return rms, snr
+    mse = np.mean((I_after-I_before)**2)
+    signal_power = np.max(I_before) ** 2
+    
+    rmse = np.sqrt(mse)
+    snr = 10 * math.log10(signal_power / mse)
+
+    return rmse, snr
 
