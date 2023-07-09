@@ -18,7 +18,7 @@ def img2double(image):
     numpy.ndarray: Image with pixel intensities as double precision floating point numbers.
     """
     image = np.array(image)
-    image = image.astype(np.float)/255.0
+    image = image.astype(float)/255.0
     return image
 
 
