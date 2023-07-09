@@ -69,7 +69,7 @@ def compress_svd(image, order):
     #h,w,channel = image.shape
     st.write('Shape:')
     st.write(image.shape)
-    #original_size = h*w*channel
+    original_size = h*w
     
     # Initialize start time
     start_time = time.time()
