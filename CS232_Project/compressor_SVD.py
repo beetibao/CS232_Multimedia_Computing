@@ -12,7 +12,7 @@ import cv2
 def img2double(image):
 
     image = np.array(image)          
-    image = image.astype(float)/ 255.0 
+    image = image.astype(float)#/ 255.0 
 
     return image     
 
