@@ -179,7 +179,7 @@ def evaluate_DCT(I_before,I_after):
     signal_power = np.max(I_before) ** 2
     
     rmse = np.sqrt(mse)
-    snr = 10 * math.log10(signal_power / mse)
-
+    #snr = 10 * math.log10(signal_power / mse)
+    snr = signal_power / mse
     return rmse, snr
 
