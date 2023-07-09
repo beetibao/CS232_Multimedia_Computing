@@ -31,5 +31,6 @@
 
 ## ĐỒ ÁN MÔN HỌC
 <a name="doan"></a>
-🚩 [![Nén/Giải với DCT & SVD](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cs232demo.streamlit.app/)
++ **Đề tài**: Thực hiện nén và giải nén kiểu dữ liệu ảnh bằng thuật toán Discrete Cosine Transform và thuật toán Singular Value Decomposition
+🚩 [![Demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cs232demo.streamlit.app/)
 
