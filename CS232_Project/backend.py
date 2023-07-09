@@ -59,6 +59,7 @@ def SVD(img, k):
     st.write(f"**Compressed image shape :** {compressed_image.shape}")
 
     rmse, snr = svd_evaluation(img, compressed_image)
+    size_reduction = round(size_reduction, 4)
     metric_svd.update({"time_compress(s)": compression_time, 
                         "compression_ratio(%)": size_reduction,
                         "RMSE": np.round(rmse,4),
