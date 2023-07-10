@@ -30,7 +30,7 @@ def DCT(img,level,dir_path):
 
     # st.write("Size after:")
     img_size_after = int(os.path.getsize(dir_path + '/output_DCT.jpg'))
-    comp_ratio = round((img_size/img_size_after))*100
+    comp_ratio = round((abs(img_size-img_size_after)/img_size))*100
     rms, snr = evaluate_DCT(img_before,img_after)
     metric_dct.update({ "time(s)": np.round(time_de + time_comp,3),
                         "compression_ratio(%)": comp_ratio,
