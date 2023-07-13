@@ -31,6 +31,6 @@
 
 ## ĐỒ ÁN MÔN HỌC
 <a name="doan"></a>
-+ **Đề tài**: Thực hiện nén và giải nén kiểu dữ liệu ảnh bằng thuật toán Discrete Cosine Transform và thuật toán Singular Value Decomposition
++ 📣**Đề tài**: Thực hiện nén và giải nén kiểu dữ liệu ảnh bằng thuật toán Discrete Cosine Transform và thuật toán Singular Value Decomposition
 + 🚩**Demo**: [![Demo](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://cs232demo.streamlit.app/)
-
++ 📝**Báo cáo chi tiết**: [Report](https://github.com/beetibao/CS232_Multimedia_Computing/blob/main/CS232_FinalReport.pdf)
